@@ -1,16 +1,21 @@
 package ui;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.DataSet;
 public class Main extends Application{
 	private static DataSetGUI dataGUI;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		dataGUI=new DataSetGUI();
 		launch(args);
+		
+		
 	}
 
 	@Override

@@ -105,4 +105,9 @@ public class Person implements Serializable{
 	public void setProfilePhoto(String profilePhoto) {
 		this.profilePhoto = profilePhoto;
 	}
+	
+	public String toString() {
+		return "Name: "+getName()+
+				"\nLast Name: "+getLastName();
+	}
 }
