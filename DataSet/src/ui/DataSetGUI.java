@@ -2,6 +2,8 @@ package ui;
 
 import java.io.IOException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,14 +11,34 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import model.Person;
 
 public class DataSetGUI {
 	private Stage mainStage;
 	
     @FXML
     private TextField tfNumber;
+    
+    @FXML
+    private Label searchTitle;
+
+    @FXML
+    private TextField searcher;
+    
+    @FXML
+    private TableView<Person> PersonTable;
+    
+    @FXML
+    private TableColumn<Person, String> tcPerson;
     
     public DataSetGUI() {
     }
@@ -38,7 +60,7 @@ public class DataSetGUI {
     	Parent root= fxmlloader.load();
     	Scene scene= new Scene (root);
 		mainStage.setScene(scene);
-    	mainStage.setTitle("window2");
+    	mainStage.setTitle("Create Page");
 		mainStage.show();
     }
     
@@ -84,8 +106,71 @@ public class DataSetGUI {
     	Parent root= fxmlloader.load();
     	Scene scene= new Scene (root);
 		mainStage.setScene(scene);
-    	mainStage.setTitle("StarPage");
+    	mainStage.setTitle("Star Page");
 		mainStage.show();
+    }
+    @FXML
+    public void tosearchByCode(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlloader= new FXMLLoader (getClass().getResource("searchPage.fxml"));
+    	fxmlloader.setController(this);
+    	Parent root= fxmlloader.load();
+    	Scene scene= new Scene (root);
+		mainStage.setScene(scene);
+    	mainStage.setTitle("Search Page");
+    	String prev=searchTitle.getText();
+    	searchTitle.setText(prev+"code");
+		mainStage.show();
+    }
+
+    @FXML
+    public void tosearchByFullname(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlloader= new FXMLLoader (getClass().getResource("searchPage.fxml"));
+    	fxmlloader.setController(this);
+    	Parent root= fxmlloader.load();
+    	Scene scene= new Scene (root);
+		mainStage.setScene(scene);
+    	mainStage.setTitle("Search Page");
+    	String prev=searchTitle.getText();
+    	searchTitle.setText(prev+"fullname");
+		mainStage.show();
+    }
+
+    @FXML
+    public void tosearchByLastname(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlloader= new FXMLLoader (getClass().getResource("searchPage.fxml"));
+    	fxmlloader.setController(this);
+    	Parent root= fxmlloader.load();
+    	Scene scene= new Scene (root);
+		mainStage.setScene(scene);
+    	mainStage.setTitle("Search Page");
+    	String prev=searchTitle.getText();
+    	searchTitle.setText(prev+"lastname");
+		mainStage.show();
+    }
+
+    @FXML
+    public void tosearchByName(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlloader= new FXMLLoader (getClass().getResource("searchPage.fxml"));
+    	fxmlloader.setController(this);
+    	Parent root= fxmlloader.load();
+    	Scene scene= new Scene (root);
+		mainStage.setScene(scene);
+    	mainStage.setTitle("Search Page");
+    	String prev=searchTitle.getText();
+    	searchTitle.setText(prev+"name");
+		mainStage.show();
+    }
+    
+    public void initializeTableViewEmployees() {
+		ObservableList<Person> observableList;
+		/*observableList= FXCollections.observableArrayList(null);
+		PersonTable.setItems(observableList);
+		tcPerson.setCellFactory(new PropertyValueFactory<Person,String>("Name"));*/
+    }
+
+    @FXML
+    public void tosearchAndShow(KeyEvent event) {
+    	initializeTableViewEmployees();
     }
 
 }

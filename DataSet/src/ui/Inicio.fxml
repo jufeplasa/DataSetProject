@@ -11,10 +11,10 @@
         <menus>
           <Menu mnemonicParsing="false" text="Search">
             <items>
-              <MenuItem mnemonicParsing="false" text="Name" />
-                  <MenuItem mnemonicParsing="false" text="Lastname" />
-                  <MenuItem mnemonicParsing="false" text="Full name" />
-                  <MenuItem mnemonicParsing="false" text="Code" />
+              <MenuItem mnemonicParsing="false" onAction="#tosearchByName" text="Name" />
+                  <MenuItem mnemonicParsing="false" onAction="#tosearchByLastname" text="Lastname" />
+                  <MenuItem mnemonicParsing="false" onAction="#tosearchByFullname" text="Full name" />
+                  <MenuItem mnemonicParsing="false" onAction="#tosearchByCode" text="Code" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">

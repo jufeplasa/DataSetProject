@@ -7,6 +7,7 @@ public class Person implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String lastName;
+	private String fullName;
 	private String gender;
 	private String dateOfBirth;
 	private double height;
@@ -22,11 +23,22 @@ public class Person implements Serializable{
 		this.height = height;
 		this.nacionality = nacionality;
 		this.profilePhoto = profilePhoto;
+		fullName=name+" "+lastName;
 	}
 
 
 	public String getName() {
 		return name;
+	}
+
+
+	public String getFullName() {
+		return fullName;
+	}
+
+
+	public void setFullName() {
+		fullName =name+" "+lastName; 
 	}
 
 
