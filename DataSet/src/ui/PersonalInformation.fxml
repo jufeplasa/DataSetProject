@@ -26,5 +26,6 @@
       </Label>
       <Button layoutX="356.0" layoutY="319.0" mnemonicParsing="false" onAction="#upgradePerson" prefHeight="25.0" prefWidth="60.0" text="Edit" />
       <Button layoutX="443.0" layoutY="319.0" mnemonicParsing="false" onAction="#deletePerson" prefHeight="25.0" prefWidth="70.0" text="Delete" />
+      <Button mnemonicParsing="false" onAction="#toBack" text="Back" />
    </children>
 </Pane>

@@ -167,10 +167,14 @@ public class DataSetGUI {
 		PersonTable.setItems(observableList);
 		tcPerson.setCellFactory(new PropertyValueFactory<Person,String>("Name"));*/
     }
-
+    
+    @FXML
+    private Label searchTitle1;
     @FXML
     public void tosearchAndShow(KeyEvent event) {
-    	initializeTableViewEmployees();
+    	String texto=searcher.getText();
+    	searchTitle1.setText(texto);
+    	//initializeTableViewEmployees();
     }
 
 }
