@@ -1,16 +1,27 @@
 package ui;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-public class Main extends Application {
-	public static void main(String [] args) {
-		
+public class Main extends Application{
+	private static DataSetGUI dataGUI;
+	
+	public static void main(String[] args) {
+		dataGUI=new DataSetGUI();
+		launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-		
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Inicio.fxml"));
+		fxmlLoader.setController(dataGUI);
+		Parent root = fxmlLoader.load();
+		dataGUI.setMainStage(primaryStage);
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("Start Window");
+		primaryStage.show();
 	}
 }

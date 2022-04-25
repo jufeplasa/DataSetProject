@@ -5,7 +5,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.Pane?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar layoutY="2.0">
@@ -20,10 +19,15 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Create" />
+              <MenuItem mnemonicParsing="false" onAction="#toWindowCreate" text="Create" />
                   <MenuItem mnemonicParsing="false" text="Remove" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Data">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#save" text="SaveData" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
    </children>
