@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -22,23 +23,24 @@
          </font>
       </Label>
       <Button layoutX="328.0" layoutY="309.0" mnemonicParsing="false" text="Delete" />
-      <Button layoutX="129.0" layoutY="309.0" mnemonicParsing="false" text="View" />
+      <Button layoutX="129.0" layoutY="309.0" mnemonicParsing="false" onAction="#toViewPerson" text="View" />
       <Button layoutX="224.0" layoutY="309.0" mnemonicParsing="false" text="Update" />
       <Button mnemonicParsing="false" onAction="#toBack" prefHeight="31.0" prefWidth="72.0" text="Back">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <TableView fx:id="PersonTable" layoutX="337.0" layoutY="88.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="PersonTable" layoutX="338.0" layoutY="52.0" prefHeight="140.0" prefWidth="190.0">
         <columns>
           <TableColumn fx:id="tcPerson" prefWidth="199.0" text="Person" />
         </columns>
       </TableView>
-      <Label layoutX="126.0" layoutY="207.0" prefHeight="31.0" prefWidth="149.0" style="-fx-background-color: black;" text="Label" />
+      <Label fx:id="lbSelectPerson" layoutX="126.0" layoutY="207.0" prefHeight="31.0" prefWidth="149.0" style="-fx-background-color: darkBlue;" textFill="WHITE" />
       <Label fx:id="searchTitle1" layoutX="22.0" layoutY="258.0" prefHeight="41.0" prefWidth="256.0" text="Search by ">
          <font>
             <Font name="Copperplate Gothic Light" size="33.0" />
          </font>
       </Label>
+      <ComboBox fx:id="cbListPerson" layoutX="358.0" layoutY="266.0" prefWidth="150.0" />
    </children>
 </Pane>

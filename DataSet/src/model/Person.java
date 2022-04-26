@@ -10,10 +10,17 @@ public class Person implements Serializable{
 	private String fullName;
 	private String gender;
 	private String dateOfBirth;
+	private int age;
 	private double height;
 	private String nacionality;
 	private String profilePhoto;
 	
+	public Person(String name, String lastName,int age,String dateOfBirth) {
+		this.name = name;
+		this.lastName = lastName;
+		this.setAge(age);
+		this.dateOfBirth = dateOfBirth;
+	}
 	
 	public Person(String name, String lastName, String gender, String dateOfBirth, double height, String nacionality, String profilePhoto) {
 		this.name = name;
@@ -109,5 +116,13 @@ public class Person implements Serializable{
 	public String toString() {
 		return "Name: "+getName()+
 				"\nLast Name: "+getLastName();
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
 	}
 }

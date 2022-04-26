@@ -23,8 +23,10 @@ public class DataSet {
 	}
 	
 
-	public void addPerson(String name, String lastName, String gender, String dateOfBirth, double height, String nacionality, String profilePhoto) {
-		
+	public void addPerson() {
+		int age=generateAge();
+		String date=getRandomDate(age) ;
+		persons.add(new Person(getRandomName(),getRandomLastName(),age,date));
 	}
 
 	public List<Person> getPersons(){
@@ -56,6 +58,42 @@ public class DataSet {
 			line = br.readLine();
 		}
 		br.close();
+	}
+	
+	public int generateAge() {
+		int index = (int)(Math.random()*101+1);
+		int age;
+		if(index<=19) {
+			age= (int)(Math.random()*15);
+		}
+		else if(index>=20 && index<=32){
+			age= (int)(Math.random()*(24-15+1)+15);
+		}
+		else if(index>=33 && index<=71){
+			age= (int)(Math.random()*(54-25+1)+25);
+		}
+		else if(index>=72 && index<=84){
+			age= (int)(Math.random()*(64-55+1)+55);
+		}
+		else {
+			age= (int)(Math.random()*(99-65+1)+65);
+		}
+		return age;
+	}
+	
+	public String getRandomDate(int age) {
+		String date="";
+		int year=2022-age; 
+		int month=(int)(Math.random()*13+1);
+		int day;
+		if(month==1||month==3||month==5||month==7||month==8||month==10||month==12) {
+			day=(int)(Math.random()*32+1);
+		}
+		else {
+			day=(int)(Math.random()*31+1);
+		}
+		date=day+"/"+month+"/"+year;
+		return date;
 	}
 	
 	public String getRandomName() {
