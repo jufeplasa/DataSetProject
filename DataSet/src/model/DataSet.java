@@ -9,10 +9,10 @@ import java.util.List;
 public class DataSet {
 	private List<String> names;
 	private List<String> lastNames;
+	private List<Person> persons;
 	private String FILE_LASTNAME_TXT_PATH = "data/lastname/Names_2010Census.csv";
 	private String FILE_NAME_TXT_PATH = "data/name/babynames-clean.csv";
 	
-	private List<Person> persons;
 	public DataSet() throws IOException {
 		persons = new ArrayList<Person>();
 		names = new ArrayList<String>();
@@ -21,26 +21,25 @@ public class DataSet {
 		importLastNames();
 		
 	}
+	
 
 	public void addPerson() {
 		int age=generateAge();
 		String date=getRandomDate(age) ;
-		persons.add(new Person(getRandomName(),getRandomLastName(),age,date));
+		persons.add(new Person(getRandomName(),getRandomLastName(),age,date,getRandomImage()));
+	}
 
-public void addPersonX() {
-	persons.add(new Person(getRandomName(),getRandomLastName()));
-	}
-	
-/*
-	public void addPerson(String name, String lastName, String gender, String dateOfBirth, double height, String nacionality, String profilePhoto) {
-		
->>>>>>> Stashed changes
-	}
-*/
 	public List<Person> getPersons(){
 		return this.persons;
 	}
 	
+	public String getRandomImage() {
+		String raiz="src/photos/";
+		String base=".jpg";
+		int index = (int)(Math.random()*101+1);
+		String photo=raiz+index+base;
+		return photo;
+	}
 
 	public void importNames() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(FILE_NAME_TXT_PATH));

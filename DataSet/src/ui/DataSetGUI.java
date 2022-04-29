@@ -1,29 +1,24 @@
 package ui;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TouchEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import model.DataSet;
 import model.Person;
@@ -31,11 +26,7 @@ import model.Person;
 public class DataSetGUI {
 	private Stage mainStage;
 	
-
 	private DataSet data;
-
-	private DataSet dataSet;
-
 	
     @FXML
     private TextField tfNumber;
@@ -67,23 +58,14 @@ public class DataSetGUI {
     @FXML
     private Label lbCode;
 
-    @FXML
-    private TableView<Person> PersonTable;
-
-    @FXML
-    private TableColumn<Person, String> tcPerson;
-    
     
     public DataSetGUI() {
     }
     
 	public void setMainStage(Stage primaryStage) throws IOException {
 		mainStage=primaryStage;
-
 		data=new DataSet();
-
-		dataSet = new DataSet();
-	}
+    	ivPhoto=new ImageView();
 	}
     @FXML
     public void save(ActionEvent event) {
@@ -131,7 +113,7 @@ public class DataSetGUI {
     			alert.showAndWait();
         	}
         	else {
-            	for(int i=0;i<=numPeople;i++) {
+            	for(int i=0;i<numPeople;i++) {
             		data.addPerson();
             	}
         	}
@@ -159,6 +141,7 @@ public class DataSetGUI {
     	String prev=searchTitle.getText();
     	searchTitle.setText(prev+"code");
 		mainStage.show();
+    	initializeComboBoxPeople(); 
     }
 
     @FXML
@@ -172,6 +155,7 @@ public class DataSetGUI {
     	String prev=searchTitle.getText();
     	searchTitle.setText(prev+"fullname");
 		mainStage.show();
+    	initializeComboBoxPeople(); 
     }
 
     @FXML
@@ -185,6 +169,7 @@ public class DataSetGUI {
     	String prev=searchTitle.getText();
     	searchTitle.setText(prev+"lastname");
 		mainStage.show();
+    	initializeComboBoxPeople(); 
     }
 
     @FXML
@@ -198,28 +183,26 @@ public class DataSetGUI {
     	String prev=searchTitle.getText();
     	searchTitle.setText(prev+"name");
 		mainStage.show();
+    	initializeComboBoxPeople(); 
     }
     
-    public void initializeTableViewPeople() {
-		ObservableList<Person> observableList;
-
-		observableList= FXCollections.observableArrayList(data.getPersons());
-		PersonTable.setItems(observableList);
-		tcPerson.setCellValueFactory(new PropertyValueFactory<Person,String>("name"));
-    }
     
     @FXML
     private ComboBox<Person> cbListPerson;
     
+    private Person tempPerson;
+    
+    
     public void initializeComboBoxPeople() {
-    	ObservableList<Person> observableList;
-    	observableList= FXCollections.observableArrayList(data.getPersons());
-    	cbListPerson.setItems(observableList);
-
-		
-		observableList= FXCollections.observableArrayList(dataSet.getPersons());
-		PersonTable.setItems(observableList);
-		tcPerson.setCellValueFactory(new PropertyValueFactory<Person,String>("name"));
+    	ObservableList<Person> items = FXCollections.observableArrayList();
+    	
+    	items.addAll(data.getPersons());
+    	cbListPerson.getItems().addAll(items);
+    	cbListPerson.setOnAction(new EventHandler<ActionEvent>() {     
+    		public void handle(ActionEvent e)  {    
+    			tempPerson=cbListPerson.getValue();
+    		}       
+    	});
     }
     
     @FXML
@@ -227,28 +210,20 @@ public class DataSetGUI {
     
     @FXML
     public void tosearchAndShow(KeyEvent event) {
-    	for(int i=0;i<=10;i++) {
-			dataSet.addPerson();
-		}
-		
     	String texto=searcher.getText();
     	searchTitle1.setText(texto);
-    	initializeTableViewPeople();
-    	initializeComboBoxPeople(); 
-
-    	initializeTableViewEmployees();
-
     }
+ 
     
     @FXML
     public void toViewPerson(ActionEvent event) throws IOException {
-    	showInformationPerson(cbListPerson.getValue());
     	FXMLLoader fxmlloader= new FXMLLoader (getClass().getResource("PersonalInformation.fxml"));
     	fxmlloader.setController(this);
     	Parent root= fxmlloader.load();
     	Scene scene= new Scene (root);
 		mainStage.setScene(scene);
     	mainStage.setTitle("view Page");
+    	showInformationPerson(tempPerson);
 		mainStage.show();
     }
     
@@ -258,10 +233,18 @@ public class DataSetGUI {
     	lbAge.setText(p.getAge()+"");
     	lbHeight.setText(p.getHeight()+"");
     	lbCode.setText("UPS");
-    	ivPhoto=new ImageView();
-    	Image imagen=new Image(p.getProfilePhoto());
+    	File f = new File(p.getProfilePhoto());
+    	Image imagen=new Image(f.toURI().toString());
     	ivPhoto.setImage(imagen);
     }
     
+    @FXML
+    public void deletePerson(ActionEvent event) {
+
+    }
     
+    @FXML
+    public void upgradePerson(ActionEvent event) {
+
+    }
 }

@@ -15,11 +15,12 @@ public class Person implements Serializable{
 	private String nacionality;
 	private String profilePhoto;
 
-	public Person(String name, String lastName,int age,String dateOfBirth) {
+	public Person(String name, String lastName,int age,String dateOfBirth,String profilePhoto) {
 		this.name = name;
 		this.lastName = lastName;
 		this.setAge(age);
 		this.dateOfBirth = dateOfBirth;
+		this.profilePhoto = profilePhoto;
 	}
 
 	public Person (String name, String lastName) {
@@ -119,8 +120,7 @@ public class Person implements Serializable{
 	}
 	
 	public String toString() {
-		return "Name: "+getName()+
-				"\nLast Name: "+getLastName();
+		return getName();
 	}
 
 	public int getAge() {

@@ -3,8 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -30,17 +28,12 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <TableView fx:id="PersonTable" layoutX="338.0" layoutY="52.0" prefHeight="140.0" prefWidth="190.0">
-        <columns>
-          <TableColumn fx:id="tcPerson" prefWidth="199.0" text="Person" />
-        </columns>
-      </TableView>
       <Label fx:id="lbSelectPerson" layoutX="126.0" layoutY="207.0" prefHeight="31.0" prefWidth="149.0" style="-fx-background-color: darkBlue;" textFill="WHITE" />
       <Label fx:id="searchTitle1" layoutX="22.0" layoutY="258.0" prefHeight="41.0" prefWidth="256.0" text="Search by ">
          <font>
             <Font name="Copperplate Gothic Light" size="33.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cbListPerson" layoutX="358.0" layoutY="266.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbListPerson" layoutX="361.0" layoutY="137.0" prefWidth="150.0" />
    </children>
 </Pane>
