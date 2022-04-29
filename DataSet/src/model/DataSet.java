@@ -21,14 +21,22 @@ public class DataSet {
 		importLastNames();
 		
 	}
-	
 
 	public void addPerson() {
 		int age=generateAge();
 		String date=getRandomDate(age) ;
 		persons.add(new Person(getRandomName(),getRandomLastName(),age,date));
-	}
 
+public void addPersonX() {
+	persons.add(new Person(getRandomName(),getRandomLastName()));
+	}
+	
+/*
+	public void addPerson(String name, String lastName, String gender, String dateOfBirth, double height, String nacionality, String profilePhoto) {
+		
+>>>>>>> Stashed changes
+	}
+*/
 	public List<Person> getPersons(){
 		return this.persons;
 	}

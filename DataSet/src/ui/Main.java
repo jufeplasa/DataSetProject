@@ -14,7 +14,6 @@ public class Main extends Application{
 		dataGUI=new DataSetGUI();
 		launch(args);
 		
-		
 	}
 
 	@Override

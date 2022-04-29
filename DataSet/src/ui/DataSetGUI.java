@@ -31,7 +31,11 @@ import model.Person;
 public class DataSetGUI {
 	private Stage mainStage;
 	
+
 	private DataSet data;
+
+	private DataSet dataSet;
+
 	
     @FXML
     private TextField tfNumber;
@@ -75,7 +79,11 @@ public class DataSetGUI {
     
 	public void setMainStage(Stage primaryStage) throws IOException {
 		mainStage=primaryStage;
+
 		data=new DataSet();
+
+		dataSet = new DataSet();
+	}
 	}
     @FXML
     public void save(ActionEvent event) {
@@ -194,6 +202,7 @@ public class DataSetGUI {
     
     public void initializeTableViewPeople() {
 		ObservableList<Person> observableList;
+
 		observableList= FXCollections.observableArrayList(data.getPersons());
 		PersonTable.setItems(observableList);
 		tcPerson.setCellValueFactory(new PropertyValueFactory<Person,String>("name"));
@@ -206,6 +215,11 @@ public class DataSetGUI {
     	ObservableList<Person> observableList;
     	observableList= FXCollections.observableArrayList(data.getPersons());
     	cbListPerson.setItems(observableList);
+
+		
+		observableList= FXCollections.observableArrayList(dataSet.getPersons());
+		PersonTable.setItems(observableList);
+		tcPerson.setCellValueFactory(new PropertyValueFactory<Person,String>("name"));
     }
     
     @FXML
@@ -213,10 +227,17 @@ public class DataSetGUI {
     
     @FXML
     public void tosearchAndShow(KeyEvent event) {
+    	for(int i=0;i<=10;i++) {
+			dataSet.addPerson();
+		}
+		
     	String texto=searcher.getText();
     	searchTitle1.setText(texto);
     	initializeTableViewPeople();
     	initializeComboBoxPeople(); 
+
+    	initializeTableViewEmployees();
+
     }
     
     @FXML

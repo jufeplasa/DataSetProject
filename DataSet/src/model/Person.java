@@ -14,14 +14,19 @@ public class Person implements Serializable{
 	private double height;
 	private String nacionality;
 	private String profilePhoto;
-	
+
 	public Person(String name, String lastName,int age,String dateOfBirth) {
 		this.name = name;
 		this.lastName = lastName;
 		this.setAge(age);
 		this.dateOfBirth = dateOfBirth;
 	}
-	
+
+	public Person (String name, String lastName) {
+		this.name = name;
+		this.lastName = lastName;
+	}
+
 	public Person(String name, String lastName, String gender, String dateOfBirth, double height, String nacionality, String profilePhoto) {
 		this.name = name;
 		this.lastName = lastName;
