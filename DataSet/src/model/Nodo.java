@@ -6,6 +6,11 @@ class Nodo<T> {
      * Dato contenido en el nodo.
      */
     private T dato;
+    
+    /**
+     * Dato con el que se va a organizar.
+     */
+    private String comparador;
 
     /**
      * Nodo hijo izquierda.
@@ -20,7 +25,8 @@ class Nodo<T> {
     /**
      * Factor de equilibrio del nodo.
      */
-    private int factorE;
+    @SuppressWarnings("unused")
+	private int factorE;
 
     /**
      * constructor por defecto.
@@ -37,8 +43,9 @@ class Nodo<T> {
      *
      * @param dato que contendra el nodo.
      */
-    public Nodo(T dato) {
+    public Nodo(T dato,String comparador) {
         this.dato = dato;
+        this.comparador=comparador;
         izquierda = null;
         derecha = null;
         factorE = 0;
@@ -150,4 +157,12 @@ class Nodo<T> {
         }
         return Math.max(hIzq, hDer) + 1;
     }
+
+	public String getComparador() {
+		return comparador;
+	}
+
+	public void setComparador(String comparador) {
+		this.comparador = comparador;
+	}
 }
