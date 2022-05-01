@@ -38,9 +38,6 @@ public class DataSetGUI {
     private TextField searcher;
     
     @FXML
-    private Label lbSelectPerson;
-    
-    @FXML
     private ImageView ivPhoto;
 
     @FXML
@@ -141,7 +138,7 @@ public class DataSetGUI {
     	String prev=searchTitle.getText();
     	searchTitle.setText(prev+"code");
 		mainStage.show();
-    	initializeComboBoxPeople(); 
+    	//initializeComboBoxPeople(); 
     }
 
     @FXML
@@ -155,7 +152,7 @@ public class DataSetGUI {
     	String prev=searchTitle.getText();
     	searchTitle.setText(prev+"fullname");
 		mainStage.show();
-    	initializeComboBoxPeople(); 
+    	//initializeComboBoxPeople(); 
     }
 
     @FXML
@@ -169,7 +166,7 @@ public class DataSetGUI {
     	String prev=searchTitle.getText();
     	searchTitle.setText(prev+"lastname");
 		mainStage.show();
-    	initializeComboBoxPeople(); 
+    	//initializeComboBoxPeople(); 
     }
 
     @FXML
@@ -183,7 +180,7 @@ public class DataSetGUI {
     	String prev=searchTitle.getText();
     	searchTitle.setText(prev+"name");
 		mainStage.show();
-    	initializeComboBoxPeople(); 
+    	//initializeComboBoxPeople(); 
     }
     
     
@@ -205,13 +202,21 @@ public class DataSetGUI {
     	});
     }
     
+    
+    
     @FXML
     private Label searchTitle1;
     
     @FXML
     public void tosearchAndShow(KeyEvent event) {
+    	cbListPerson.getItems().clear();
     	String texto=searcher.getText();
-    	searchTitle1.setText(texto);
+    	System.out.println(texto);
+    	if(!texto.isEmpty()) {
+	    	data.addPeopletoShow(texto);
+	    	initializeComboBoxPeople();
+	    	searchTitle1.setText(texto);
+    	}
     }
  
     
