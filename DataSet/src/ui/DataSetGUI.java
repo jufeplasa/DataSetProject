@@ -84,7 +84,7 @@ public class DataSetGUI {
 
 		dataSet = new DataSet();
 	}
-	}
+	
     @FXML
     public void save(ActionEvent event) {
 
@@ -132,7 +132,7 @@ public class DataSetGUI {
         	}
         	else {
             	for(int i=0;i<=numPeople;i++) {
-            		data.addPerson();
+    //        		data.addPerson();
             	}
         	}
     	}
@@ -228,7 +228,7 @@ public class DataSetGUI {
     @FXML
     public void tosearchAndShow(KeyEvent event) {
     	for(int i=0;i<=10;i++) {
-			dataSet.addPerson();
+	//		dataSet.addPerson();
 		}
 		
     	String texto=searcher.getText();
@@ -236,7 +236,7 @@ public class DataSetGUI {
     	initializeTableViewPeople();
     	initializeComboBoxPeople(); 
 
-    	initializeTableViewEmployees();
+    //	initializeTableViewEmployees();
 
     }
     

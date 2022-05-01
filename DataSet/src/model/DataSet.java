@@ -5,30 +5,34 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class DataSet {
 	private List<String> names;
 	private List<String> lastNames;
+	private List<String> countries;
 	private String FILE_LASTNAME_TXT_PATH = "data/lastname/Names_2010Census.csv";
 	private String FILE_NAME_TXT_PATH = "data/name/babynames-clean.csv";
+	private String FILE_NACIONALITY_TXT_PATH = "data/nacionality/population_by_country_2020.csv";
 	
 	private List<Person> persons;
 	public DataSet() throws IOException {
 		persons = new ArrayList<Person>();
 		names = new ArrayList<String>();
 		lastNames = new ArrayList<String>();
+		countries = new ArrayList<String>();
 		importNames();
 		importLastNames();
 		
 	}
-
+/*
 	public void addPerson() {
 		int age=generateAge();
 		String date=getRandomDate(age) ;
 		persons.add(new Person(getRandomName(),getRandomLastName(),age,date));
 
-public void addPersonX() {
-	persons.add(new Person(getRandomName(),getRandomLastName()));
+	public void addPerson() {
+		persons.add(new Person(getRandomName(), getRandomLastName()));
 	}
 	
 /*
@@ -112,5 +116,31 @@ public void addPersonX() {
 	public String getRandomLastName() {
 		int index = (int)(Math.random() * lastNames.size()-1);
 		return lastNames.get(index);
+	}
+	
+	public int getRandomHeight() {
+		int min_val = 120;
+        int max_val = 210;
+        Random random = new Random();
+        int randomNum = min_val + random.nextInt((max_val - min_val) + 1);
+        return  randomNum;
+	}
+	
+	public void importCountries() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(FILE_NACIONALITY_TXT_PATH));
+		String line = br.readLine();
+		line = br.readLine();
+		while(line != null) {
+			String[] parts = line.split("\\,");
+			String country = parts[0];
+			countries.add(country);
+			line = br.readLine();
+		}
+		br.close();
+	}
+	
+	public String getRandomCountry() {
+		int index = (int)(Math.random()*countries.size()-1);
+		return countries.get(index);
 	}
 }
