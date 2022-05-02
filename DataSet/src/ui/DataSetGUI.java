@@ -62,15 +62,9 @@ public class DataSetGUI {
 	public void setMainStage(Stage primaryStage) throws IOException {
 		mainStage=primaryStage;
 		data=new DataSet();
-<<<<<<< HEAD
-
-		dataSet = new DataSet();
-	}
-	
-=======
     	ivPhoto=new ImageView();
 	}
->>>>>>> master
+	
     @FXML
     public void save(ActionEvent event) {
 
@@ -117,13 +111,8 @@ public class DataSetGUI {
     			alert.showAndWait();
         	}
         	else {
-<<<<<<< HEAD
-            	for(int i=0;i<=numPeople;i++) {
-    //        		data.addPerson();
-=======
             	for(int i=0;i<numPeople;i++) {
             		data.addPerson();
->>>>>>> master
             	}
         	}
     	}
@@ -150,7 +139,7 @@ public class DataSetGUI {
     	String prev=searchTitle.getText();
     	searchTitle.setText(prev+"code");
 		mainStage.show();
-    	//initializeComboBoxPeople(); 
+    	initializeComboBoxPeople(); 
     }
 
     @FXML
@@ -178,7 +167,7 @@ public class DataSetGUI {
     	String prev=searchTitle.getText();
     	searchTitle.setText(prev+"lastname");
 		mainStage.show();
-    	//initializeComboBoxPeople(); 
+    	initializeComboBoxPeople(); 
     }
 
     @FXML
@@ -192,7 +181,7 @@ public class DataSetGUI {
     	String prev=searchTitle.getText();
     	searchTitle.setText(prev+"name");
 		mainStage.show();
-    	//initializeComboBoxPeople(); 
+    	initializeComboBoxPeople(); 
     }
     
     
@@ -204,7 +193,6 @@ public class DataSetGUI {
     
     public void initializeComboBoxPeople() {
     	ObservableList<Person> items = FXCollections.observableArrayList();
-    	
     	items.addAll(data.getPersons());
     	cbListPerson.getItems().addAll(items);
     	cbListPerson.setOnAction(new EventHandler<ActionEvent>() {     
@@ -221,19 +209,6 @@ public class DataSetGUI {
     
     @FXML
     public void tosearchAndShow(KeyEvent event) {
-<<<<<<< HEAD
-    	for(int i=0;i<=10;i++) {
-	//		dataSet.addPerson();
-		}
-		
-    	String texto=searcher.getText();
-    	searchTitle1.setText(texto);
-    	initializeTableViewPeople();
-    	initializeComboBoxPeople(); 
-
-    //	initializeTableViewEmployees();
-
-=======
     	cbListPerson.getItems().clear();
     	String texto=searcher.getText();
     	if(!texto.isEmpty()) {

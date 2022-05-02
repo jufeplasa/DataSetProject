@@ -27,6 +27,7 @@ public class DataSet {
 		countries = new ArrayList<String>();
 		importNames();
 		importLastNames();
+		importCountries();
 		nameTree=new ArbolAVL<Person>();
 		lastNameTree=new ArbolAVL<Person>();
 		fullNameTree=new ArbolAVL<Person>();
