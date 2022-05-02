@@ -236,13 +236,33 @@ public class DataSetGUI {
 =======
     	cbListPerson.getItems().clear();
     	String texto=searcher.getText();
-    	System.out.println(texto);
     	if(!texto.isEmpty()) {
 	    	data.addPeopletoShow(texto);
 	    	initializeComboBoxPeople();
 	    	searchTitle1.setText(texto);
     	}
->>>>>>> master
+    }
+    
+    @FXML
+    public void tosearchAndShow2(KeyEvent event) {
+    	cbListPerson.getItems().clear();
+    	String texto=searcher.getText();
+    	if(!texto.isEmpty()) {
+	    	data.addPeopletoShow(texto);
+	    	initializeComboBoxPeople();
+	    	searchTitle1.setText(texto);
+    	}
+    }
+
+    @FXML
+    public void tosearchAndShow3(KeyEvent event) {
+    	cbListPerson.getItems().clear();
+    	String texto=searcher.getText();
+    	if(!texto.isEmpty()) {
+	    	data.addPeopletoShow(texto);
+	    	initializeComboBoxPeople();
+	    	searchTitle1.setText(texto);
+    	}
     }
  
     

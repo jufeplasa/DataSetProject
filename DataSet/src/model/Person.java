@@ -15,12 +15,13 @@ public class Person implements Serializable{
 	private String nacionality;
 	private String profilePhoto;
 
-	public Person(String name, String lastName,int age,String dateOfBirth,String profilePhoto) {
+	public Person(String name, String lastName,int age,String dateOfBirth,String profilePhoto, String nacionality) {
 		this.name = name;
 		this.lastName = lastName;
 		this.setAge(age);
 		this.dateOfBirth = dateOfBirth;
 		this.profilePhoto = profilePhoto;
+		this.nacionality = nacionality;
 	}
 
 	public Person (String name, String lastName) {

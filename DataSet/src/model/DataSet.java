@@ -10,20 +10,15 @@ import java.util.Random;
 public class DataSet {
 	private List<String> names;
 	private List<String> lastNames;
-<<<<<<< HEAD
 	private List<String> countries;
 	private String FILE_LASTNAME_TXT_PATH = "data/lastname/Names_2010Census.csv";
 	private String FILE_NAME_TXT_PATH = "data/name/babynames-clean.csv";
 	private String FILE_NACIONALITY_TXT_PATH = "data/nacionality/population_by_country_2020.csv";
-=======
 	private List<Person> persons;
-	private String FILE_LASTNAME_TXT_PATH = "data/lastname/Names_2010Census.csv";
-	private String FILE_NAME_TXT_PATH = "data/name/babynames-clean.csv";
 	private ArbolAVL<Person> nameTree;
 	private ArbolAVL<Person> lastNameTree;
 	private ArbolAVL<Person> fullNameTree;
 	private ArbolAVL<Person> codeTree;
->>>>>>> master
 	
 	public DataSet() throws IOException {
 		persons = new ArrayList<Person>();
@@ -37,30 +32,19 @@ public class DataSet {
 		fullNameTree=new ArbolAVL<Person>();
 		codeTree=new ArbolAVL<Person>();
 	}
-<<<<<<< HEAD
-/*
-	public void addPerson() {
-		int age=generateAge();
-		String date=getRandomDate(age) ;
-		persons.add(new Person(getRandomName(),getRandomLastName(),age,date));
-
-	public void addPerson() {
-		persons.add(new Person(getRandomName(), getRandomLastName()));
-=======
-	
 
 	public void addPerson() {
 		int age=generateAge();
 		String date=getRandomDate(age) ;
 		String name=getRandomName();
 		String lastName=getRandomLastName();
-		Person newP=new Person(name,lastName,age,date,getRandomImage());
+		String country=getRandomCountry();
+		Person newP=new Person(name,lastName,age,date,getRandomImage(),country);
 		nameTree.add(newP,name);
 		//lastNameTree.add(newP,lastName);
 		//fullNameTree.add(newP,name+" "+lastName);
 		//codeTree.add(newP,"");
 		//persons.add(newP);
->>>>>>> master
 	}
 	
 	public void addPeopletoShow(String key) {

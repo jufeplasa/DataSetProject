@@ -553,7 +553,6 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		if (currentnode.getDato()!=null && currentnode.getComparador().startsWith(key)) {
 			System.out.println(currentnode.getComparador());
 			listObject.add(raizTmp.getDato());
-
 		}
 		else {
 			if(currentnode.getDerecha()!=null) {
