@@ -42,6 +42,7 @@ public class DataSet {
 		String country=getRandomCountry();
 		double height=getRandomHeight();
 		Person newP=new Person(name,lastName,age,date,getRandomImage(),country, height);
+		Person newP = new Person(name,lastName,age,date,getRandomImage(),country);
 		nameTree.add(newP,name);
 		lastNameTree.add(newP,lastName);
 		fullNameTree.add(newP,name+" "+lastName);
@@ -210,4 +211,21 @@ public class DataSet {
 		int index = (int)(Math.random()*countries.size()-1);
 		return countries.get(index);
 	}
+	
+	public String getRandomCode() {
+		int tam = 8;
+		String alphaNumericS;
+        StringBuilder stringBuilder;
+        alphaNumericS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789";
+        stringBuilder = new StringBuilder(tam);
+        
+		for (int i = 0; i < tam; i++) {
+			// generate numeric
+			int myindex = (int) (alphaNumericS.length() * Math.random());
+			// add the characters
+			stringBuilder.append(alphaNumericS.charAt(myindex));
+		}
+		return stringBuilder.toString();
+	}
+	
 }
