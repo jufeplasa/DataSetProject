@@ -14,14 +14,17 @@ public class Person implements Serializable{
 	private double height;
 	private String nacionality;
 	private String profilePhoto;
+	private String comparatorValue;
 
-	public Person(String name, String lastName,int age,String dateOfBirth,String profilePhoto, String nacionality) {
+	public Person(String name, String lastName,int age,String dateOfBirth,String profilePhoto, String nacionality, double height) {
 		this.name = name;
 		this.lastName = lastName;
 		this.setAge(age);
 		this.dateOfBirth = dateOfBirth;
 		this.profilePhoto = profilePhoto;
 		this.nacionality = nacionality;
+		this.height = height;
+		fullName=name+" "+lastName;
 	}
 
 	public Person (String name, String lastName) {
@@ -37,7 +40,6 @@ public class Person implements Serializable{
 		this.height = height;
 		this.nacionality = nacionality;
 		this.profilePhoto = profilePhoto;
-		fullName=name+" "+lastName;
 	}
 
 
@@ -59,7 +61,7 @@ public class Person implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-
+ 
 
 	public String getLastName() {
 		return lastName;
@@ -121,7 +123,7 @@ public class Person implements Serializable{
 	}
 	
 	public String toString() {
-		return getName();
+		return getComparatorValue();
 	}
 
 	public int getAge() {
@@ -130,5 +132,13 @@ public class Person implements Serializable{
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public String getComparatorValue() {
+		return comparatorValue;
+	}
+
+	public void setComparatorValue(String comparatorValue) {
+		this.comparatorValue = comparatorValue;
 	}
 }

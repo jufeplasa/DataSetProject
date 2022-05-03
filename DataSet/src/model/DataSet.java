@@ -40,20 +40,59 @@ public class DataSet {
 		String name=getRandomName();
 		String lastName=getRandomLastName();
 		String country=getRandomCountry();
-		Person newP=new Person(name,lastName,age,date,getRandomImage(),country);
+		double height=getRandomHeight();
+		Person newP=new Person(name,lastName,age,date,getRandomImage(),country, height);
 		nameTree.add(newP,name);
-		//lastNameTree.add(newP,lastName);
-		//fullNameTree.add(newP,name+" "+lastName);
+		lastNameTree.add(newP,lastName);
+		fullNameTree.add(newP,name+" "+lastName);
 		//codeTree.add(newP,"");
-		//persons.add(newP);
 	}
 	
-	public void addPeopletoShow(String key) {
+	public void addPeopletoShow(String key, int tree) {
 		persons.clear();
-		nameTree.getListObject().clear();;
-		nameTree.addPeopletoList(key, nameTree.getRaiz());
-		if(nameTree.getListObject()!=null) {
-			persons=nameTree.getListObject();
+		nameTree.getListObject().clear();
+		lastNameTree.getListObject().clear();
+		fullNameTree.getListObject().clear();
+		codeTree.getListObject().clear();
+		
+		if(tree==1) {
+			System.out.println("busca nombres");
+			nameTree.addPeopletoList(key, nameTree.getRaiz());
+			if(nameTree.getListObject()!=null) {
+				for(int i=0;i<nameTree.getListObject().size();i++) {
+					nameTree.getListObject().get(i).setComparatorValue(nameTree.getListObject().get(i).getName());
+				}
+				persons=nameTree.getListObject();
+			}
+		}
+		else if(tree==2) {
+			System.out.println("busca apellidos");
+			lastNameTree.addPeopletoList(key, lastNameTree.getRaiz());
+			if(lastNameTree.getListObject()!=null) {
+				for(int i=0;i<lastNameTree.getListObject().size();i++) {
+					lastNameTree.getListObject().get(i).setComparatorValue(lastNameTree.getListObject().get(i).getLastName());
+				}
+				persons=lastNameTree.getListObject();
+			}
+		}
+		else if(tree==3) {
+			System.out.println("busca nombres completos");
+			fullNameTree.addPeopletoList(key, fullNameTree.getRaiz());
+			if(fullNameTree.getListObject()!=null) {
+				for(int i=0;i<fullNameTree.getListObject().size();i++) {
+					fullNameTree.getListObject().get(i).setComparatorValue(fullNameTree.getListObject().get(i).getFullName());
+				}
+				persons=fullNameTree.getListObject();
+			}
+		}
+		else if(tree==4) {
+			codeTree.addPeopletoList(key, codeTree.getRaiz());
+			if(codeTree.getListObject()!=null) {
+				for(int i=0;i<codeTree.getListObject().size();i++) {
+					codeTree.getListObject().get(i).setComparatorValue("");
+				}
+				persons=codeTree.getListObject();
+			}
 		}
 	}
 

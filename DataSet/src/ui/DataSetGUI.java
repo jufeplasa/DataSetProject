@@ -3,6 +3,7 @@ package ui;
 import java.io.File;
 import java.io.IOException;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,6 +28,8 @@ public class DataSetGUI {
 	private Stage mainStage;
 	
 	private DataSet data;
+	
+	private int typeMethodToSearch;
 	
     @FXML
     private TextField tfNumber;
@@ -54,6 +57,12 @@ public class DataSetGUI {
 
     @FXML
     private Label lbCode;
+    
+    @FXML
+    private Label lbBirthDay;
+
+    @FXML
+    private Label lbCountry;
 
     
     public DataSetGUI() {
@@ -113,7 +122,13 @@ public class DataSetGUI {
         	else {
             	for(int i=0;i<numPeople;i++) {
             		data.addPerson();
+            		
             	}
+            	alert.setAlertType(AlertType.INFORMATION);
+    			alert.setTitle("Information");
+    			alert.setHeaderText("Successful process");
+    			alert.setContentText("The program created "+numPeople+" peole.");
+    			alert.showAndWait();
         	}
     	}
     }
@@ -130,6 +145,8 @@ public class DataSetGUI {
     }
     @FXML
     public void tosearchByCode(ActionEvent event) throws IOException {
+
+		typeMethodToSearch=4;
     	FXMLLoader fxmlloader= new FXMLLoader (getClass().getResource("searchPage.fxml"));
     	fxmlloader.setController(this);
     	Parent root= fxmlloader.load();
@@ -144,6 +161,8 @@ public class DataSetGUI {
 
     @FXML
     public void tosearchByFullname(ActionEvent event) throws IOException {
+
+		typeMethodToSearch=3;
     	FXMLLoader fxmlloader= new FXMLLoader (getClass().getResource("searchPage.fxml"));
     	fxmlloader.setController(this);
     	Parent root= fxmlloader.load();
@@ -153,11 +172,13 @@ public class DataSetGUI {
     	String prev=searchTitle.getText();
     	searchTitle.setText(prev+"fullname");
 		mainStage.show();
-    	//initializeComboBoxPeople(); 
+    	initializeComboBoxPeople(); 
     }
 
     @FXML
     public void tosearchByLastname(ActionEvent event) throws IOException {
+
+    	typeMethodToSearch=2;
     	FXMLLoader fxmlloader= new FXMLLoader (getClass().getResource("searchPage.fxml"));
     	fxmlloader.setController(this);
     	Parent root= fxmlloader.load();
@@ -172,6 +193,8 @@ public class DataSetGUI {
 
     @FXML
     public void tosearchByName(ActionEvent event) throws IOException {
+
+    	typeMethodToSearch=1;
     	FXMLLoader fxmlloader= new FXMLLoader (getClass().getResource("searchPage.fxml"));
     	fxmlloader.setController(this);
     	Parent root= fxmlloader.load();
@@ -212,7 +235,7 @@ public class DataSetGUI {
     	cbListPerson.getItems().clear();
     	String texto=searcher.getText();
     	if(!texto.isEmpty()) {
-	    	data.addPeopletoShow(texto);
+	    	data.addPeopletoShow(texto,typeMethodToSearch);
 	    	initializeComboBoxPeople();
 	    	searchTitle1.setText(texto);
     	}
@@ -223,7 +246,7 @@ public class DataSetGUI {
     	cbListPerson.getItems().clear();
     	String texto=searcher.getText();
     	if(!texto.isEmpty()) {
-	    	data.addPeopletoShow(texto);
+	    	data.addPeopletoShow(texto,typeMethodToSearch);
 	    	initializeComboBoxPeople();
 	    	searchTitle1.setText(texto);
     	}
@@ -234,7 +257,7 @@ public class DataSetGUI {
     	cbListPerson.getItems().clear();
     	String texto=searcher.getText();
     	if(!texto.isEmpty()) {
-	    	data.addPeopletoShow(texto);
+	    	data.addPeopletoShow(texto,typeMethodToSearch);
 	    	initializeComboBoxPeople();
 	    	searchTitle1.setText(texto);
     	}
@@ -243,14 +266,24 @@ public class DataSetGUI {
     
     @FXML
     public void toViewPerson(ActionEvent event) throws IOException {
-    	FXMLLoader fxmlloader= new FXMLLoader (getClass().getResource("PersonalInformation.fxml"));
-    	fxmlloader.setController(this);
-    	Parent root= fxmlloader.load();
-    	Scene scene= new Scene (root);
-		mainStage.setScene(scene);
-    	mainStage.setTitle("view Page");
-    	showInformationPerson(tempPerson);
-		mainStage.show();
+    	if(tempPerson==null) {
+    		Alert alert=new Alert(null);
+    		alert.setAlertType(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Select a person");
+			alert.setContentText("You must choose a person first to view his/her information.");
+			alert.showAndWait();
+    	}
+    	else {
+        	FXMLLoader fxmlloader= new FXMLLoader (getClass().getResource("PersonalInformation.fxml"));
+        	fxmlloader.setController(this);
+        	Parent root= fxmlloader.load();
+        	Scene scene= new Scene (root);
+    		mainStage.setScene(scene);
+        	mainStage.setTitle("view Page");
+        	showInformationPerson(tempPerson);
+    		mainStage.show();
+    	}
     }
     
     public void showInformationPerson(Person p) {
@@ -259,6 +292,8 @@ public class DataSetGUI {
     	lbAge.setText(p.getAge()+"");
     	lbHeight.setText(p.getHeight()+"");
     	lbCode.setText("UPS");
+    	lbBirthDay.setText(p.getDateOfBirth());
+    	lbCountry.setText(p.getNacionality());
     	File f = new File(p.getProfilePhoto());
     	Image imagen=new Image(f.toURI().toString());
     	ivPhoto.setImage(imagen);
