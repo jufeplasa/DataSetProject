@@ -41,12 +41,12 @@ public class DataSet {
 		String lastName=getRandomLastName();
 		String country=getRandomCountry();
 		double height=getRandomHeight();
-		Person newP=new Person(name,lastName,age,date,getRandomImage(),country, height);
-		Person newP = new Person(name,lastName,age,date,getRandomImage(),country);
+		String code=getRandomCode();
+		Person newP=new Person(name,lastName,age,date,getRandomImage(),country, height, code);
 		nameTree.add(newP,name);
 		lastNameTree.add(newP,lastName);
 		fullNameTree.add(newP,name+" "+lastName);
-		//codeTree.add(newP,"code");
+		codeTree.add(newP,code);
 	}
 	
 	public void addPeopletoShow(String key, int tree) {
@@ -83,22 +83,22 @@ public class DataSet {
 				persons=fullNameTree.getListObject();
 			}
 		}
-		/**else if(tree==4) {
+		else if(tree==4) {
 			codeTree.addPeopletoList(key, codeTree.getRaiz());
 			if(codeTree.getListObject()!=null&&codeTree.getListObject().size()<=100) {
 				for(int i=0;i<codeTree.getListObject().size();i++) {
-					codeTree.getListObject().get(i).setComparatorValue("");
+					codeTree.getListObject().get(i).setComparatorValue(codeTree.getListObject().get(i).getCode());
 				}
 				persons=codeTree.getListObject();
 			}
-		}**/
+		}
 	}
 	
 	public void removeFromTrees(Person pRemove) {
 		nameTree.remove(pRemove.getName());
 		lastNameTree.remove(pRemove.getLastName());
 		fullNameTree.remove(pRemove.getFullName());
-		//codeTree.remove(pRemove.getFullName());
+		codeTree.remove(pRemove.getCode());
 	}
 
 	public List<Person> getPersons(){

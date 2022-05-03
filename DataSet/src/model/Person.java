@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Person implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	private String code;
 	private String name;
 	private String lastName;
 	private String fullName;
@@ -16,7 +17,7 @@ public class Person implements Serializable{
 	private String profilePhoto;
 	private String comparatorValue;
 
-	public Person(String name, String lastName,int age,String dateOfBirth,String profilePhoto, String nacionality, double height) {
+	public Person(String name, String lastName,int age,String dateOfBirth,String profilePhoto, String nacionality, double height, String code) {
 		this.name = name;
 		this.lastName = lastName;
 		this.setAge(age);
@@ -24,6 +25,7 @@ public class Person implements Serializable{
 		this.profilePhoto = profilePhoto;
 		this.nacionality = nacionality;
 		this.height = height;
+		this.code=code;
 		fullName=name+" "+lastName;
 	}
 
@@ -140,5 +142,13 @@ public class Person implements Serializable{
 
 	public void setComparatorValue(String comparatorValue) {
 		this.comparatorValue = comparatorValue;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 }

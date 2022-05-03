@@ -563,6 +563,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 			}
 		}
 		else {
+			System.out.println("no entro");
 			if(currentnode.getDerecha()!=null) {
 				addPeopletoList( key,currentnode.getDerecha());
 			}

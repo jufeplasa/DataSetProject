@@ -227,7 +227,6 @@ public class DataSetGUI {
     }
     
     
-    
     @FXML
     private Label searchTitle1;
     
@@ -282,7 +281,7 @@ public class DataSetGUI {
     	lbLastname.setText(p.getLastName());
     	lbAge.setText(p.getAge()+"");
     	lbHeight.setText(p.getHeight()+"");
-    	lbCode.setText("UPS");
+    	lbCode.setText(p.getCode());
     	lbBirthDay.setText(p.getDateOfBirth());
     	lbCountry.setText(p.getNacionality());
     	File f = new File(p.getProfilePhoto());

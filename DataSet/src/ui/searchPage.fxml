@@ -32,6 +32,6 @@
             <Font name="Copperplate Gothic Light" size="33.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cbListPerson" layoutX="361.0" layoutY="137.0" prefHeight="25.0" prefWidth="211.0" />
+      <ComboBox fx:id="cbListPerson" layoutX="361.0" layoutY="137.0" onKeyReleased="#tosearchAndShow1" onKeyTyped="#tosearchAndShow2" prefHeight="25.0" prefWidth="211.0" />
    </children>
 </Pane>
