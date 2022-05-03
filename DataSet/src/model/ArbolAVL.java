@@ -29,7 +29,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 			this.raiz = nodo;
 			return true;
 		} else //estaba ya en el arbol?
-			if (this.contains(nodo.getDato())) {
+			if (this.contains(nodo.getComparador())) {
 				return false;
 			} //no estaba antes en el arbol
 			else {
@@ -96,23 +96,25 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 			}
 	}
 
-	private Nodo<T> estructurar(Nodo<T> nodo, int altIzq, int altDer) {
-		if (extraeFactorE(nodo) == 2) {
-			if (extraeFactorE(nodo.getDerecha()) == 1 || extraeFactorE(nodo.getDerecha()) == 0) {
+	private Nodo<T> estructurar(Nodo<T> nodo, int altIzq, int altDer){
+		if(extraeFactorE(nodo)==2){
+			if( extraeFactorE(nodo.getDerecha() )==1  || extraeFactorE(nodo.getDerecha()) == 0){
 				nodo = rotacionSimpleIzquierda(nodo);
-			} else if (extraeFactorE(nodo.getDerecha()) == -1) {
+			}
+			else if(extraeFactorE(nodo.getDerecha() )==-1){
 				nodo = rotacionCompuestaDerecha(nodo);
 			}
-		} else if (extraeFactorE(nodo) == -2) {
-			if (extraeFactorE(nodo.getIzquierda()) == -1 || extraeFactorE(nodo.getDerecha()) == 0) {
+		}
+		else if(extraeFactorE(nodo)==-2){
+			if(extraeFactorE(nodo.getIzquierda() )==-1 || extraeFactorE(nodo.getDerecha())==0){
 				nodo = rotacionSimpleDerecha(nodo);
-			} else if (extraeFactorE(nodo.getIzquierda()) == 1) {
+			}
+			else if(extraeFactorE(nodo.getIzquierda())==1){
 				nodo = rotacionCompuestaIzquierda(nodo);
 			}
 		}
-
-		return nodo;
-	}
+		return nodo;	
+    }
 
 	public int extraeFactorE(Nodo<T> nodo) {
 		if (nodo != null) {
@@ -272,9 +274,13 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		return iter;
 	}
 
+	
+	//--------------------------------------------------
+
 	public boolean remove(String o) throws ClassCastException, NullPointerException {
 		Nodo<T> borrar = null, mirar = null, cambiar = null, nPadre = null;
 		Nodo<T> raizTmp = this.getRaiz();
+		
 		@SuppressWarnings("unused")
 		T c_aux, d_aux;
 		boolean salir = false;
@@ -423,7 +429,9 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		}
 		return false;
 	}
-
+//------------------------------------
+	
+	
 	public int size() {
 		return this.preOrden().size();
 	}
@@ -592,6 +600,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		}
 	}
 
+	
 	public List<T> getListObject() {
 		return listObject;
 	}
