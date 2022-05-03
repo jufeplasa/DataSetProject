@@ -2,7 +2,7 @@ package ui;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -230,19 +231,9 @@ public class DataSetGUI {
     @FXML
     private Label searchTitle1;
     
-    @FXML
-    public void tosearchAndShow(KeyEvent event) {
-    	cbListPerson.getItems().clear();
-    	String texto=searcher.getText();
-    	if(!texto.isEmpty()) {
-	    	data.addPeopletoShow(texto,typeMethodToSearch);
-	    	initializeComboBoxPeople();
-	    	searchTitle1.setText(texto);
-    	}
-    }
     
     @FXML
-    public void tosearchAndShow2(KeyEvent event) {
+    public void tosearchAndShow1(KeyEvent event) {
     	cbListPerson.getItems().clear();
     	String texto=searcher.getText();
     	if(!texto.isEmpty()) {
@@ -253,7 +244,7 @@ public class DataSetGUI {
     }
 
     @FXML
-    public void tosearchAndShow3(KeyEvent event) {
+    public void tosearchAndShow2(KeyEvent event) {
     	cbListPerson.getItems().clear();
     	String texto=searcher.getText();
     	if(!texto.isEmpty()) {
@@ -299,9 +290,22 @@ public class DataSetGUI {
     	ivPhoto.setImage(imagen);
     }
     
-    @FXML
-    public void deletePerson(ActionEvent event) {
 
+   
+    
+    @FXML
+    public void deletePerson(ActionEvent event) throws IOException {
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+    	alert.setTitle("Confirmation remove");
+    	alert.setHeaderText("You are going to delete a person");
+    	alert.setContentText("Are you ok with this?");
+
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.OK){
+    		data.removeFromTrees(tempPerson);
+        	toBack(event);
+    	}
+    	
     }
     
     @FXML

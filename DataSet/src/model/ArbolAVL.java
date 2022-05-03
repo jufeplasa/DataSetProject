@@ -275,10 +275,12 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 	public boolean remove(String o) throws ClassCastException, NullPointerException {
 		Nodo<T> borrar = null, mirar = null, cambiar = null, nPadre = null;
 		Nodo<T> raizTmp = this.getRaiz();
+		@SuppressWarnings("unused")
 		T c_aux, d_aux;
 		boolean salir = false;
 		int altDer = 0;
 		int altIzq = 0;
+		@SuppressWarnings("unused")
 		int a = 0;
 
 		if (this.isEmpty()) {
@@ -550,7 +552,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 	public void addPeopletoList(String key,Nodo<T> raizTmp) {
 		Nodo<T> currentnode = raizTmp;
 
-		if (currentnode.getDato()!=null && currentnode.getComparador().startsWith(key)) {
+		if (currentnode.getDato()!=null && currentnode.getComparador().toUpperCase().startsWith(key.toUpperCase())) {
 			System.out.println(currentnode.getComparador());
 			listObject.add(raizTmp.getDato());
 			if(currentnode.getDerecha()!=null) {
