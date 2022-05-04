@@ -11,6 +11,8 @@ public class ArbolRyN<K extends Comparable<K>, V>{
 		public K key;
 		public V value;
 		public Node left, right;
+		
+		private V eliminar;
 		public boolean color;
 		
 		public Node(K key, V value) {
@@ -98,12 +100,15 @@ public class ArbolRyN<K extends Comparable<K>, V>{
 	private Node getNode(Node node, K key) {
 		if (node == null)
 			return null;
-		if(key.equals((node.key)))  
+		if(key.equals((node.key))) {
 			return node;
-		else if(key.compareTo(key) < 0)
-			return getNode(node.left, key);
-		else
+		}
+		else if(key.compareTo(key) < 0) {
+			return getNode(node.left, key) ;
+		}
+		else {
 			return getNode(node.right, key);
+		}
 	}
 	
 	public boolean contiene(K key) {
@@ -174,7 +179,6 @@ public class ArbolRyN<K extends Comparable<K>, V>{
 			return successor;
 		}
 	}
-	
 	
 	
 }

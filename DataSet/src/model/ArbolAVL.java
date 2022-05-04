@@ -12,8 +12,8 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		listObject = new ArrayList<T>();
 	}
 	public String toString() {
-        return raiz.toString();
-    }
+		return raiz.toString();
+	}
 
 	public ArbolAVL(Comparator<String> cmp) {
 		this.comparador = cmp;
@@ -33,73 +33,73 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 			return true;
 
 		} else // estaba ya en el arbol?
-		if (this.contains(nodo.getComparador())) {
-			return false;
-		} // no estaba antes en el arbol
-		else {
-			while (!salir) {
-
-				// es mayor el nodo a insertar que la raiz?
-				if (this.compararDato(nodo.getComparador(), raizTmp.getComparador()) > 0) {
-					if (raizTmp.getDerecha() != null) {
-						raizTmp = raizTmp.getDerecha();
-					} else {
-						salir = true;
-						der = true;
-					}
-
-				} // el nodo es menor que la raiz
-				else {
-					if (raizTmp.getIzquierda() != null) {
-						raizTmp = raizTmp.getIzquierda();
-					} else {
-						salir = true;
-					}
-				}
-			}
-
-			// tengo que insertarlo a la derecha?
-			if (der) {
-				raizTmp.setDerecha(nodo);
-			} // lo inserto a la izquierda
+			if (this.contains(nodo.getComparador())) {
+				return false;
+			} // no estaba antes en el arbol
 			else {
-				raizTmp.setIzquierda(nodo);
-			}
+				while (!salir) {
 
-			// mientras no este equilibrado el arbol miramos donde reestructurar
-			while (equilibrado(this.getRaiz()) < 0) {
-				raizTmp = padre(raizTmp);
+					// es mayor el nodo a insertar que la raiz?
+					if (this.compararDato(nodo.getComparador(), raizTmp.getComparador()) > 0) {
+						if (raizTmp.getDerecha() != null) {
+							raizTmp = raizTmp.getDerecha();
+						} else {
+							salir = true;
+							der = true;
+						}
 
-				if (raizTmp.getDerecha() == null) {
-					altDer = 0;
-				} else {
-					altDer = raizTmp.getDerecha().getAltura();
-				}
-
-				if (raizTmp.getIzquierda() == null) {
-					altIzq = 0;
-				} else {
-					altIzq = raizTmp.getIzquierda().getAltura();
-				}
-
-				Nodo<T> cambiar = estructurar(raizTmp, altIzq, altDer);
-				Nodo<T> superior = padre(raizTmp);
-
-				// si los nodos modificados tenian un padre anteriormente
-				if (compararDato(superior.getComparador(), raizTmp.getComparador()) != 0) {
-					if (superior.getIzquierda() != null
-							&& compararDato(superior.getIzquierda().getComparador(), raizTmp.getComparador()) == 0) {
-						superior.setIzquierda(cambiar);
-					} else if (superior.getDerecha() != null
-							&& compararDato(superior.getDerecha().getComparador(), raizTmp.getComparador()) == 0) {
-						superior.setDerecha(cambiar);
+					} // el nodo es menor que la raiz
+					else {
+						if (raizTmp.getIzquierda() != null) {
+							raizTmp = raizTmp.getIzquierda();
+						} else {
+							salir = true;
+						}
 					}
-				} else {
-					this.raiz = cambiar;
 				}
+
+				// tengo que insertarlo a la derecha?
+				if (der) {
+					raizTmp.setDerecha(nodo);
+				} // lo inserto a la izquierda
+				else {
+					raizTmp.setIzquierda(nodo);
+				}
+
+				// mientras no este equilibrado el arbol miramos donde reestructurar
+				while (equilibrado(this.getRaiz()) < 0) {
+					raizTmp = padre(raizTmp);
+
+					if (raizTmp.getDerecha() == null) {
+						altDer = 0;
+					} else {
+						altDer = raizTmp.getDerecha().getAltura();
+					}
+
+					if (raizTmp.getIzquierda() == null) {
+						altIzq = 0;
+					} else {
+						altIzq = raizTmp.getIzquierda().getAltura();
+					}
+
+					Nodo<T> cambiar = estructurar(raizTmp, altIzq, altDer);
+					Nodo<T> superior = padre(raizTmp);
+
+					// si los nodos modificados tenian un padre anteriormente
+					if (compararDato(superior.getComparador(), raizTmp.getComparador()) != 0) {
+						if (superior.getIzquierda() != null
+								&& compararDato(superior.getIzquierda().getComparador(), raizTmp.getComparador()) == 0) {
+							superior.setIzquierda(cambiar);
+						} else if (superior.getDerecha() != null
+								&& compararDato(superior.getDerecha().getComparador(), raizTmp.getComparador()) == 0) {
+							superior.setDerecha(cambiar);
+						}
+					} else {
+						this.raiz = cambiar;
+					}
+				}
+				return true;
 			}
-			return true;
-		}
 	}
 
 	private Nodo<T> estructurar(Nodo<T> nodo, int altIzq, int altDer) {
@@ -348,7 +348,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 				// nos lo cargamos
 				borrar.setDato(null);
 			} // solo tiene un hijo? (o 2 pero en la misma altura) entonces la altura de ese
-				// subarbol será 1 o 2 (altura raiz = 1)
+			// subarbol será 1 o 2 (altura raiz = 1)
 			else if (borrar.getAltura() <= 2) {
 
 				if (borrar.getIzquierda() != null) {
@@ -436,7 +436,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		return false;
 	}
 
-	
+
 	//------------------------------------
 
 	public int size() {
@@ -576,15 +576,15 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 			if (currentnode.getIzquierda() != null) {
 				addPeopletoList(key, currentnode.getIzquierda());
 			}
-		} else {
+		} 
+		else {
 			System.out.println("no entro");
-			if (currentnode.getDerecha() != null) {
-				addPeopletoList(key, currentnode.getDerecha());
+			if(currentnode.getDerecha()!=null) {
+				addPeopletoList( key,currentnode.getDerecha());
 			}
 			if (currentnode.getIzquierda() != null) {
 				addPeopletoList(key, currentnode.getIzquierda());
 			}
-
 		}
 
 	}

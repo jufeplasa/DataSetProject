@@ -16,11 +16,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import model.DataSet;
 import model.Person;
@@ -64,6 +67,12 @@ public class DataSetGUI {
 
     @FXML
     private Label lbCountry;
+    
+    @FXML
+    private TableView<Person> tvPerson;
+
+    @FXML
+    private TableColumn<Person, String> tcPerson;
 
     
     public DataSetGUI() {
@@ -214,11 +223,21 @@ public class DataSetGUI {
     
     private Person tempPerson;
     
+    public void itializeTableView() {
+    	ObservableList<Person> items= FXCollections.observableArrayList(data.getPersons());
+    	if(data.getPersons().size()<=100) {
+        	tvPerson.setItems(items);
+        	tcPerson.setCellValueFactory(new PropertyValueFactory<Person, String>("comparatorValue"));
+    	}
+    }
+    
     
     public void initializeComboBoxPeople() {
     	ObservableList<Person> items = FXCollections.observableArrayList();
-    	items.addAll(data.getPersons());
-    	cbListPerson.getItems().addAll(items);
+    	if(data.getPersons().size()<=100) {
+        	items.addAll(data.getPersons());
+        	cbListPerson.getItems().addAll(items);
+    	}
     	cbListPerson.setOnAction(new EventHandler<ActionEvent>() {     
     		public void handle(ActionEvent e)  {    
     			tempPerson=cbListPerson.getValue();
@@ -238,6 +257,7 @@ public class DataSetGUI {
     	if(!texto.isEmpty()) {
 	    	data.addPeopletoShow(texto,typeMethodToSearch);
 	    	initializeComboBoxPeople();
+	    	itializeTableView();
 	    	searchTitle1.setText(texto);
     	}
     }
@@ -248,6 +268,7 @@ public class DataSetGUI {
     	String texto=searcher.getText();
     	if(!texto.isEmpty()) {
 	    	data.addPeopletoShow(texto,typeMethodToSearch);
+	    	itializeTableView();
 	    	initializeComboBoxPeople();
 	    	searchTitle1.setText(texto);
     	}

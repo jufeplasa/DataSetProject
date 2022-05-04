@@ -58,7 +58,8 @@ public class DataSet {
 		
 		if(tree==1) {
 			nameTree.addPeopletoList(key, nameTree.getRaiz());
-			if(nameTree.getListObject()!=null&&nameTree.getListObject().size()<=100) {
+			System.out.println(nameTree.getListObject().size());
+			if(nameTree.getListObject()!=null) {
 				for(int i=0;i<nameTree.getListObject().size();i++) {
 					nameTree.getListObject().get(i).setComparatorValue(nameTree.getListObject().get(i).getName());
 				}
@@ -67,7 +68,8 @@ public class DataSet {
 		}
 		else if(tree==2) {
 			lastNameTree.addPeopletoList(key, lastNameTree.getRaiz());
-			if(lastNameTree.getListObject()!=null&&lastNameTree.getListObject().size()<=100) {
+			System.out.println(lastNameTree.getListObject().size());
+			if(lastNameTree.getListObject()!=null) {
 				for(int i=0;i<lastNameTree.getListObject().size();i++) {
 					lastNameTree.getListObject().get(i).setComparatorValue(lastNameTree.getListObject().get(i).getLastName());
 				}
@@ -76,7 +78,7 @@ public class DataSet {
 		}
 		else if(tree==3) {
 			fullNameTree.addPeopletoList(key, fullNameTree.getRaiz());
-			if(fullNameTree.getListObject()!=null&&fullNameTree.getListObject().size()<=100) {
+			if(fullNameTree.getListObject()!=null) {
 				for(int i=0;i<fullNameTree.getListObject().size();i++) {
 					fullNameTree.getListObject().get(i).setComparatorValue(fullNameTree.getListObject().get(i).getFullName());
 				}
@@ -85,7 +87,7 @@ public class DataSet {
 		}
 		else if(tree==4) {
 			codeTree.addPeopletoList(key, codeTree.getRaiz());
-			if(codeTree.getListObject()!=null&&codeTree.getListObject().size()<=100) {
+			if(codeTree.getListObject()!=null) {
 				for(int i=0;i<codeTree.getListObject().size();i++) {
 					codeTree.getListObject().get(i).setComparatorValue(codeTree.getListObject().get(i).getCode());
 				}
