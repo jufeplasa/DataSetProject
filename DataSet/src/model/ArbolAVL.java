@@ -294,10 +294,11 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 
 		if (this.isEmpty()) {
 			return false;
-		}
+		} 
 
 		// el nodo a borrar es la raiz?
 		if (this.compararDato(o, raizTmp.getComparador()) == 0) {
+			
 			salir = true;
 			borrar = raizTmp;
 		}

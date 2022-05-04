@@ -16,6 +16,7 @@ public class DataSet {
 	private String FILE_NACIONALITY_TXT_PATH = "data/nacionality/population_by_country_2020.csv";
 	private List<Person> persons;
 	private ArbolAVL<Person> nameTree;
+	private ArbolRyN<Person, String> lastNameTree2;
 	private ArbolAVL<Person> lastNameTree;
 	private ArbolAVL<Person> fullNameTree;
 	private ArbolAVL<Person> codeTree;
@@ -31,6 +32,7 @@ public class DataSet {
 		nameTree=new ArbolAVL<Person>();
 		lastNameTree=new ArbolAVL<Person>();
 		fullNameTree=new ArbolAVL<Person>();
+		lastNameTree2=new ArbolRyN<Person,String>();
 		codeTree=new ArbolAVL<Person>();
 	}
 
@@ -45,6 +47,7 @@ public class DataSet {
 		Person newP=new Person(name,lastName,age,date,getRandomImage(),country, height, code);
 		nameTree.add(newP,name);
 		lastNameTree.add(newP,lastName);
+		lastNameTree2.add(newP,lastName);
 		fullNameTree.add(newP,name+" "+lastName);
 		codeTree.add(newP,code);
 	}

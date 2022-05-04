@@ -32,6 +32,10 @@ public class ArbolRyN<K extends Comparable<K>, V>{
 		root = null;
 		size = 0;
 	}
+
+	public Node getRoot() {
+		return root;
+	}
 	
 	public int getSize() {
 		return size;
