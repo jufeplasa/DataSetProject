@@ -9,8 +9,11 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 	Comparator<String> comparador;
 
 	public ArbolAVL() {
-		listObject=new ArrayList<T>();
+		listObject = new ArrayList<T>();
 	}
+	public String toString() {
+        return raiz.toString();
+    }
 
 	public ArbolAVL(Comparator<String> cmp) {
 		this.comparador = cmp;
@@ -24,97 +27,97 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 
 		int altIzq, altDer;
 
-		//no existía arbol
+		// no existía arbol
 		if (raizTmp == null) {
 			this.raiz = nodo;
 			return true;
-		} else //estaba ya en el arbol?
-			if (this.contains(nodo.getComparador())) {
-				return false;
-			} //no estaba antes en el arbol
-			else {
-				while (!salir) {
 
-					//es mayor el nodo a insertar que la raiz?    				
-					if (this.compararDato(nodo.getComparador(), raizTmp.getComparador()) > 0) {
-						if (raizTmp.getDerecha() != null) {
-							raizTmp = raizTmp.getDerecha();
-						} else {
-							salir = true;
-							der = true;
-						}
+		} else // estaba ya en el arbol?
+		if (this.contains(nodo.getComparador())) {
+			return false;
+		} // no estaba antes en el arbol
+		else {
+			while (!salir) {
 
-					} //el nodo es menor que la raiz
-					else {
-						if (raizTmp.getIzquierda() != null) {
-							raizTmp = raizTmp.getIzquierda();
-						} else {
-							salir = true;
-						}
+				// es mayor el nodo a insertar que la raiz?
+				if (this.compararDato(nodo.getComparador(), raizTmp.getComparador()) > 0) {
+					if (raizTmp.getDerecha() != null) {
+						raizTmp = raizTmp.getDerecha();
+					} else {
+						salir = true;
+						der = true;
 					}
-				}
 
-				//tengo que insertarlo a la derecha?
-				if (der) {
-					raizTmp.setDerecha(nodo);
-				} //lo inserto a la izquierda
+				} // el nodo es menor que la raiz
 				else {
-					raizTmp.setIzquierda(nodo);
-				}
-
-				//mientras no este equilibrado el arbol	miramos donde reestructurar
-				while (equilibrado(this.getRaiz()) < 0) {
-					raizTmp = padre(raizTmp);
-
-					if (raizTmp.getDerecha() == null) {
-						altDer = 0;
+					if (raizTmp.getIzquierda() != null) {
+						raizTmp = raizTmp.getIzquierda();
 					} else {
-						altDer = raizTmp.getDerecha().getAltura();
-					}
-
-					if (raizTmp.getIzquierda() == null) {
-						altIzq = 0;
-					} else {
-						altIzq = raizTmp.getIzquierda().getAltura();
-					}
-
-					Nodo<T> cambiar = estructurar(raizTmp, altIzq, altDer);
-					Nodo<T> superior = padre(raizTmp);
-
-					//si los nodos modificados tenian un padre anteriormente
-					if (compararDato(superior.getComparador(), raizTmp.getComparador()) != 0) {
-						if (superior.getIzquierda() != null && compararDato(superior.getIzquierda().getComparador(), raizTmp.getComparador()) == 0) {
-							superior.setIzquierda(cambiar);
-						} else if (superior.getDerecha() != null && compararDato(superior.getDerecha().getComparador(), raizTmp.getComparador()) == 0) {
-							superior.setDerecha(cambiar);
-						}
-					} else {
-						this.raiz = cambiar;
+						salir = true;
 					}
 				}
-				return true;
 			}
+
+			// tengo que insertarlo a la derecha?
+			if (der) {
+				raizTmp.setDerecha(nodo);
+			} // lo inserto a la izquierda
+			else {
+				raizTmp.setIzquierda(nodo);
+			}
+
+			// mientras no este equilibrado el arbol miramos donde reestructurar
+			while (equilibrado(this.getRaiz()) < 0) {
+				raizTmp = padre(raizTmp);
+
+				if (raizTmp.getDerecha() == null) {
+					altDer = 0;
+				} else {
+					altDer = raizTmp.getDerecha().getAltura();
+				}
+
+				if (raizTmp.getIzquierda() == null) {
+					altIzq = 0;
+				} else {
+					altIzq = raizTmp.getIzquierda().getAltura();
+				}
+
+				Nodo<T> cambiar = estructurar(raizTmp, altIzq, altDer);
+				Nodo<T> superior = padre(raizTmp);
+
+				// si los nodos modificados tenian un padre anteriormente
+				if (compararDato(superior.getComparador(), raizTmp.getComparador()) != 0) {
+					if (superior.getIzquierda() != null
+							&& compararDato(superior.getIzquierda().getComparador(), raizTmp.getComparador()) == 0) {
+						superior.setIzquierda(cambiar);
+					} else if (superior.getDerecha() != null
+							&& compararDato(superior.getDerecha().getComparador(), raizTmp.getComparador()) == 0) {
+						superior.setDerecha(cambiar);
+					}
+				} else {
+					this.raiz = cambiar;
+				}
+			}
+			return true;
+		}
 	}
 
-	private Nodo<T> estructurar(Nodo<T> nodo, int altIzq, int altDer){
-		if(extraeFactorE(nodo)==2){
-			if( extraeFactorE(nodo.getDerecha() )==1  || extraeFactorE(nodo.getDerecha()) == 0){
+	private Nodo<T> estructurar(Nodo<T> nodo, int altIzq, int altDer) {
+		if (extraeFactorE(nodo) == 2) {
+			if (extraeFactorE(nodo.getDerecha()) == 1 || extraeFactorE(nodo.getDerecha()) == 0) {
 				nodo = rotacionSimpleIzquierda(nodo);
-			}
-			else if(extraeFactorE(nodo.getDerecha() )==-1){
+			} else if (extraeFactorE(nodo.getDerecha()) == -1) {
 				nodo = rotacionCompuestaDerecha(nodo);
 			}
-		}
-		else if(extraeFactorE(nodo)==-2){
-			if(extraeFactorE(nodo.getIzquierda() )==-1 || extraeFactorE(nodo.getDerecha())==0){
+		} else if (extraeFactorE(nodo) == -2) {
+			if (extraeFactorE(nodo.getIzquierda()) == -1 || extraeFactorE(nodo.getDerecha()) == 0) {
 				nodo = rotacionSimpleDerecha(nodo);
-			}
-			else if(extraeFactorE(nodo.getIzquierda())==1){
+			} else if (extraeFactorE(nodo.getIzquierda()) == 1) {
 				nodo = rotacionCompuestaIzquierda(nodo);
 			}
 		}
-		return nodo;	
-    }
+		return nodo;
+	}
 
 	public int extraeFactorE(Nodo<T> nodo) {
 		if (nodo != null) {
@@ -127,7 +130,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 	public Nodo<T> rotacionSimpleIzquierda(Nodo<T> nodo) {
 		Nodo<T> nodoTmp = nodo;
 
-		nodo = nodoTmp.getDerecha(); //clone??
+		nodo = nodoTmp.getDerecha(); // clone??
 		nodoTmp.setDerecha(nodo.getIzquierda());
 
 		nodo.setIzquierda(nodoTmp);
@@ -144,14 +147,15 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 
 		return nodo;
 	}
+
 	public Nodo<T> rotacionCompuestaIzquierda(Nodo<T> nodo) {
-		Nodo<T> nodoTmp = nodo; //57
+		Nodo<T> nodoTmp = nodo; // 57
 
-		nodoTmp = rotacionSimpleIzquierda(nodoTmp.getIzquierda()); //param 42 | sale: 54
+		nodoTmp = rotacionSimpleIzquierda(nodoTmp.getIzquierda()); // param 42 | sale: 54
 
-		nodo.setIzquierda(nodoTmp); //param 54
+		nodo.setIzquierda(nodoTmp); // param 54
 
-		nodoTmp = rotacionSimpleDerecha(nodo); //param 54  | sale: 54
+		nodoTmp = rotacionSimpleDerecha(nodo); // param 54 | sale: 54
 
 		return nodoTmp;
 	}
@@ -188,12 +192,12 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 			return hDer;
 		}
 
-		//si no es equilibrado
+		// si no es equilibrado
 		if (Math.abs(hIzq - hDer) > 1) {
 			return -1;
 		}
 
-		//si el trozo de arbol es AVL devolvemos la altura
+		// si el trozo de arbol es AVL devolvemos la altura
 		return Math.max(hIzq, hDer) + 1;
 	}
 
@@ -234,20 +238,20 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 			return false;
 		}
 
-		//si es la raiz el buscado
+		// si es la raiz el buscado
 		if (this.compararDato(o, raizTmp.getComparador()) == 0) {
 			return true;
 		}
 
 		while (raizTmp.getDerecha() != null || raizTmp.getIzquierda() != null) {
 
-			if (this.compararDato( o, raizTmp.getComparador()) > 0) {
+			if (this.compararDato(o, raizTmp.getComparador()) > 0) {
 				if (raizTmp.getDerecha() != null) {
 					raizTmp = raizTmp.getDerecha();
 				} else {
 					return false;
 				}
-			} else if (this.compararDato( o, raizTmp.getComparador()) < 0) {
+			} else if (this.compararDato(o, raizTmp.getComparador()) < 0) {
 				if (raizTmp.getIzquierda() != null) {
 					raizTmp = raizTmp.getIzquierda();
 				} else {
@@ -255,7 +259,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 				}
 			}
 
-			if (this.compararDato( o, raizTmp.getComparador()) == 0) {
+			if (this.compararDato(o, raizTmp.getComparador()) == 0) {
 				return true;
 			}
 		}
@@ -264,7 +268,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 
 	public boolean isEmpty() {
 		return this.size() == 0;
-		//?? tal vez this.getRaiz()==null?
+		// ?? tal vez this.getRaiz()==null?
 	}
 
 	public Iterator<T> iterator() {
@@ -274,13 +278,12 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		return iter;
 	}
 
-	
-	//--------------------------------------------------
+	// --------------------------------------------------
 
 	public boolean remove(String o) throws ClassCastException, NullPointerException {
 		Nodo<T> borrar = null, mirar = null, cambiar = null, nPadre = null;
 		Nodo<T> raizTmp = this.getRaiz();
-		
+
 		@SuppressWarnings("unused")
 		T c_aux, d_aux;
 		boolean salir = false;
@@ -293,22 +296,22 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 			return false;
 		}
 
-		//el nodo a borrar es la raiz?
-		if (this.compararDato( o, raizTmp.getComparador()) == 0) {
+		// el nodo a borrar es la raiz?
+		if (this.compararDato(o, raizTmp.getComparador()) == 0) {
 			salir = true;
 			borrar = raizTmp;
 		}
 
-		//si no es la raiz, lo buscamos
+		// si no es la raiz, lo buscamos
 		while (!salir && (raizTmp.getDerecha() != null || raizTmp.getIzquierda() != null)) {
 
-			if (this.compararDato( o, raizTmp.getComparador()) > 0) {
+			if (this.compararDato(o, raizTmp.getComparador()) > 0) {
 				if (raizTmp.getDerecha() != null) {
 					raizTmp = raizTmp.getDerecha();
 				} else {
 					return false;
 				}
-			} else if (this.compararDato( o, raizTmp.getComparador()) < 0) {
+			} else if (this.compararDato(o, raizTmp.getComparador()) < 0) {
 
 				if (raizTmp.getIzquierda() != null) {
 					raizTmp = raizTmp.getIzquierda();
@@ -323,16 +326,16 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 			}
 		}
 
-		//existe el nodo a borrar?
+		// existe el nodo a borrar?
 		if (salir) {
 			mirar = borrar;
 
-			//es una hoja?
+			// es una hoja?
 			if (borrar.getIzquierda() == null && borrar.getDerecha() == null) {
 				mirar = padre(borrar);
 				nPadre = padre(borrar);
 
-				//es un arbol raiz con solo un nodo raiz?
+				// es un arbol raiz con solo un nodo raiz?
 				if (this.size() == 1) {
 					this.raiz = null;
 				}
@@ -342,9 +345,10 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 				} else if (nPadre.getDerecha() != null && compararDato(nPadre.getDerecha().getComparador(), borrar.getComparador()) == 0) {
 					nPadre.setDerecha(null);
 				}
-				//nos lo cargamos
+				// nos lo cargamos
 				borrar.setDato(null);
-			} //solo tiene un hijo? (o 2 pero en la misma altura) entonces la altura de ese subarbol será 1 o 2 (altura raiz = 1)
+			} // solo tiene un hijo? (o 2 pero en la misma altura) entonces la altura de ese
+				// subarbol será 1 o 2 (altura raiz = 1)
 			else if (borrar.getAltura() <= 2) {
 
 				if (borrar.getIzquierda() != null) {
@@ -354,17 +358,17 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 					borrar.setDato(borrar.getDerecha().getDato());
 					borrar.setDerecha(null);
 				}
-			} //cuando no es ni un hoja ni su padre. Es decir, está por medio del arbol.
+			} // cuando no es ni un hoja ni su padre. Es decir, está por medio del arbol.
 			else {
 
-				//buscamos el mayor de la izquierda
+				// buscamos el mayor de la izquierda
 				if (borrar.getIzquierda() != null) {
 					cambiar = borrar.getIzquierda();
 
 					while (cambiar.getDerecha() != null) {
 						cambiar = cambiar.getDerecha();
 					}
-				} //buscamos el menor de la derecha
+				} // buscamos el menor de la derecha
 				else if (borrar.getDerecha() != null) {
 					cambiar = cambiar.getDerecha();
 
@@ -376,7 +380,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 				c_aux = cambiar.getDato();
 				Nodo<T> papa = padre(cambiar);
 
-				//si el nodo que hemos cambiado se ha quedado con algún hijo...
+				// si el nodo que hemos cambiado se ha quedado con algún hijo...
 				if (cambiar.getIzquierda() != null || cambiar.getDerecha() != null) {
 					if (cambiar.getIzquierda() != null) {
 						cambiar.setDato(cambiar.getIzquierda().getDato());
@@ -385,7 +389,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 						cambiar.setDato(cambiar.getDerecha().getDato());
 						cambiar.setDerecha(null);
 					}
-				} //si no tiene hijos ya, lo eliminamos sin más
+				} // si no tiene hijos ya, lo eliminamos sin más
 				else {
 					if (papa.getIzquierda() != null && compararDato(papa.getIzquierda().getComparador(), cambiar.getComparador()) == 0) {
 						papa.setIzquierda(null);
@@ -413,11 +417,13 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 				Nodo<T> cambiar2 = estructurar(mirar, altIzq, altDer);
 				Nodo<T> superior = padre(mirar);
 
-				//si los nodos modificados tenian un padre anteriormente
+				// si los nodos modificados tenian un padre anteriormente
 				if (compararDato(superior.getComparador(), mirar.getComparador()) != 0) {
-					if (superior.getIzquierda() != null && compararDato(superior.getIzquierda().getComparador(), mirar.getComparador()) == 0) {
+					if (superior.getIzquierda() != null
+							&& compararDato(superior.getIzquierda().getComparador(), mirar.getComparador()) == 0) {
 						superior.setIzquierda(cambiar2);
-					} else if (superior.getDerecha() != null && compararDato(superior.getDerecha().getComparador(), mirar.getComparador()) == 0) {
+					} else if (superior.getDerecha() != null
+							&& compararDato(superior.getDerecha().getComparador(), mirar.getComparador()) == 0) {
 						superior.setDerecha(cambiar2);
 					}
 				} else {
@@ -429,9 +435,10 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		}
 		return false;
 	}
-//------------------------------------
+
 	
-	
+	//------------------------------------
+
 	public int size() {
 		return this.preOrden().size();
 	}
@@ -512,7 +519,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 	}
 
 	public int profundidad(T o, String dato) {
-		Nodo<T> nodo = new Nodo<T>(o,dato);
+		Nodo<T> nodo = new Nodo<T>(o, dato);
 		int profundidad = 0;
 		while (compararDato(nodo.getComparador(), this.getRaiz().getComparador()) != 0) {
 			profundidad++;
@@ -557,26 +564,25 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		return raizTmp;
 	}
 
-	public void addPeopletoList(String key,Nodo<T> raizTmp) {
+	public void addPeopletoList(String key, Nodo<T> raizTmp) {
 		Nodo<T> currentnode = raizTmp;
 
-		if (currentnode.getDato()!=null && currentnode.getComparador().toUpperCase().startsWith(key.toUpperCase())) {
+		if (currentnode.getDato() != null && currentnode.getComparador().toUpperCase().startsWith(key.toUpperCase())) {
 			System.out.println(currentnode.getComparador());
 			listObject.add(raizTmp.getDato());
-			if(currentnode.getDerecha()!=null) {
-				addPeopletoList( key,currentnode.getDerecha());
+			if (currentnode.getDerecha() != null) {
+				addPeopletoList(key, currentnode.getDerecha());
 			}
-			if(currentnode.getIzquierda()!=null) {
-				addPeopletoList( key,currentnode.getIzquierda());
+			if (currentnode.getIzquierda() != null) {
+				addPeopletoList(key, currentnode.getIzquierda());
 			}
-		}
-		else {
+		} else {
 			System.out.println("no entro");
-			if(currentnode.getDerecha()!=null) {
-				addPeopletoList( key,currentnode.getDerecha());
+			if (currentnode.getDerecha() != null) {
+				addPeopletoList(key, currentnode.getDerecha());
 			}
-			if(currentnode.getIzquierda()!=null) {
-				addPeopletoList( key,currentnode.getIzquierda());
+			if (currentnode.getIzquierda() != null) {
+				addPeopletoList(key, currentnode.getIzquierda());
 			}
 
 		}
@@ -600,7 +606,6 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		}
 	}
 
-	
 	public List<T> getListObject() {
 		return listObject;
 	}

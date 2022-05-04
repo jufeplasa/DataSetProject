@@ -37,6 +37,10 @@ class Nodo<T> {
         derecha = null;
         factorE = 0;
     }
+    @Override
+    public String toString() {
+        return "Nodo [valor=" + dato + ", Izquierda=" + izquierda + ", Derecha=" + derecha + "]";
+    }
 
     /**
      * Constructor con un parametro.
