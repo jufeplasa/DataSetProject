@@ -20,7 +20,7 @@ public class ArbolAVLTest{
 		arbol = new ArbolAVL<Person>();
 		Person person1 = new Person("Amilcar","Rodriguez",18,"5/8/2003","photos/1.jpg","Cali",166.0,"2GOZO453");
 		Person person2 = new Person("Juan","Felipe",19,"25/9/2003","photos/12.jpg","Cali",167.0,"2GOZO454");
-		arbol.add(person1, "Rodriguez");
+		arbol.add(person1, "Amilcar");
 		arbol.add(person2, "Juan");
 	}
 	public void setupScene4() {
@@ -29,7 +29,7 @@ public class ArbolAVLTest{
 		Person person2 = new Person("Juan","Felipe",19,"25/9/2003","photos/12.jpg","Cali",167.0,"2GOZO454");
 		Person person3 = new Person("Jorge","Jojo",19,"21/4/2003","photos/24.jpg","Cali",162.0,"2GOZO455");
 		
-		arbol.add(person1, "Rodriguez");
+		arbol.add(person1, "Amilcar");
 		arbol.add(person2, "Juan");
 		arbol.add(person3, "Jorge");
 	}
@@ -41,10 +41,19 @@ public class ArbolAVLTest{
 		Person person3 = new Person("Jorge","Jojo",19,"21/4/2003","photos/24.jpg","Cali",162.0,"2GOZO455");
 		Person person4 = new Person("Diego","Juan",20,"1/4/2002","photos/22.jpg","Cali",167.0,"2GOZO456");
 			
-		arbol.add(person1, "Rodriguez");
+		arbol.add(person1, "Amilcar");
 		arbol.add(person2, "Juan");
 		arbol.add(person3, "Jorge");
 		arbol.add(person4, "Diego");
+	}
+	@Test
+	public void testAddPerson() {
+		setupScene2();
+		Person person1 = new Person("Camila","Rodriguez",18,"5/8/2003","photos/1.jpg","Cali",166.0,"2GOZO453");
+		Person person2 = new Person("Karol","Natalia",19,"25/9/2003","photos/12.jpg","Cali",167.0,"2GOZO454");
+		
+		assertTrue(arbol.add(person1, "Camila") == true);
+		assertTrue(arbol.add(person2, "Karol")== true);
 	}
 	
 	@Test
@@ -52,7 +61,7 @@ public class ArbolAVLTest{
 		setupScene2();
 		Person person1 = new Person("Amilcar","Rodriguez",18,"5/8/2003","photos/1.jpg","Cali",166.0,"2GOZO453");
 		Person person2 = new Person("Juan","Felipe",19,"25/9/2003","photos/12.jpg","Cali",167.0,"2GOZO454");
-		arbol.add(person1, "Rodriguez");
+		arbol.add(person1, "Amilcar");
 		arbol.add(person2, "Juan");
 		
 		assertTrue(arbol.contains("Amilcar") == true);
@@ -60,9 +69,10 @@ public class ArbolAVLTest{
 	}
 	@Test
 	public void testRemovePerson() {
-		setupScene4();
-		assertTrue(arbol.remove("Amilcar") == true);
-		assertTrue(arbol.remove("Diego")== true);
+		setupScene5();
+		assertTrue(arbol.remove("Juan")== true);
+		assertTrue(arbol.remove("Jorge")== true);
+		assertTrue(arbol.remove("Amilcar")== true);		
 	}
 
 }
