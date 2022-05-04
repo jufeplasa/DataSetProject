@@ -98,9 +98,8 @@ public class ArbolRyN<K extends Comparable<K>, V>{
 	private Node getNode(Node node, K key) {
 		if (node == null)
 			return null;
-		if(key.equals((node.key)) {
+		if(key.equals((node.key)))  
 			return node;
-		}
 		else if(key.compareTo(key) < 0)
 			return getNode(node.left, key);
 		else
@@ -140,6 +139,42 @@ public class ArbolRyN<K extends Comparable<K>, V>{
 		return node;
 	}
 	
-	private V eliminar
+	private V eliminar(K key) {
+		Node node = getNode(root, key);
+		if(node != null) {
+			root = eliminar(root, key);
+			return node.value;
+		}
+		return null;
+	}
+	
+	private Node eliminar(Node node, K key) {
+		if(node == null)
+			return null;
+		if(key.compareTo(node.key) < 0) {
+			node.left = eliminar(node.left, key);
+			return node;
+		} else if(key.compareTo(node.key) > 0) {
+			node.right = eliminar(node.right, key);
+			return node;
+		} else {
+			if(node.right == null) {
+				Node leftNode = node.left;
+				node.left = null;
+				size--;
+				return leftNode;
+			}
+			
+			Node successor = minimo(node.right);
+			successor.right = elimiarMin(node.right);
+			successor.left = node.left;
+			
+			node.left = node.right = null;
+			
+			return successor;
+		}
+	}
+	
+	
 	
 }
