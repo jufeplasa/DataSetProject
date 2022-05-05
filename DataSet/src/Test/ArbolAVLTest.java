@@ -83,6 +83,13 @@ public class ArbolAVLTest {
 		assertTrue(arbol.remove("Juan")== true);
 		assertTrue(arbol.remove("Jorge")== true);
 	}
+	@Test
+	public void testBalance() {
+		setupScene4();
+		
+		//----------------------
+	}
+	
 	
 }
 
