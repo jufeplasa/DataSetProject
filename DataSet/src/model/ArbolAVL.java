@@ -283,7 +283,6 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 	public boolean remove(String o) throws ClassCastException, NullPointerException {
 		Nodo<T> borrar = null, mirar = null, cambiar = null, nPadre = null;
 		Nodo<T> raizTmp = this.getRaiz();
-
 		@SuppressWarnings("unused")
 		T c_aux, d_aux;
 		boolean salir = false;
@@ -291,18 +290,15 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		int altIzq = 0;
 		@SuppressWarnings("unused")
 		int a = 0;
-
 		if (this.isEmpty()) {
 			return false;
 		} 
-
 		// el nodo a borrar es la raiz?
 		if (this.compararDato(o, raizTmp.getComparador()) == 0) {
 			
 			salir = true;
 			borrar = raizTmp;
 		}
-
 		// si no es la raiz, lo buscamos
 		while (!salir && (raizTmp.getDerecha() != null || raizTmp.getIzquierda() != null)) {
 
