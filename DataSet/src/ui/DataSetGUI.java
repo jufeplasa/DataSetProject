@@ -403,6 +403,8 @@ public class DataSetGUI {
         	if(newPhoto.isEmpty()) {
         		newPhoto=tempPerson.getProfilePhoto();
         	}
+        	data.editPerson(tempPerson, newName, newLastName, newBirthday, newPhoto, newCountry, newHeight, tempPerson.getCode());
+        	
     	}
     	
     }

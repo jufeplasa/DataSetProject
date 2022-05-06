@@ -27,7 +27,7 @@ public class DataSet {
 	private Date date;
 	private ZoneId timeZone;
 	private LocalDate getLocalDate;
-	
+
 	public DataSet() throws IOException {
 		persons = new ArrayList<Person>();
 		names = new ArrayList<String>();
@@ -62,8 +62,8 @@ public class DataSet {
 		fullNameTree.add(newP,name+" "+lastName);
 		codeTree.add(newP,code);
 	}
-	
-	
+
+
 	public void addPersonToBinaryTree(Person newP) {
 		if(root==null) {
 			root = newP;
@@ -71,8 +71,8 @@ public class DataSet {
 			addPersonToBinaryTree(root, newP);
 		}
 	}
-	
-	
+
+
 	private void addPersonToBinaryTree(Person current, Person newPerson) {
 		if(newPerson.getName().compareTo(newPerson.getName()) < 0) {
 			if(current.getLeft()==null) {
@@ -90,19 +90,26 @@ public class DataSet {
 			}
 		}
 	}
-	
-	public void editPerson(String name, String lastName,String dateOfBirth,String profilePhoto, String nacionality, String height) {
-		
+
+	public void editPerson(Person oldP,String name, String lastName,String dateOfBirth,String profilePhoto, String nacionality, String strHeight, String code) {
+		String [] parts=dateOfBirth.split("/");
+		int currentYear=getLocalDate.getYear();
+		int bornYear=Integer.parseInt(parts[2]);
+		int age=currentYear-bornYear;
+		double height=Double.parseDouble(strHeight);
+		Person setPerson=new Person(name,lastName,age,dateOfBirth,profilePhoto,nacionality,height,code);
+		removeFromTrees(oldP);
+		addFromTrees(setPerson);
 	}
-	
-	
+
+
 	public void addPeopletoShow(String key, int tree) {
 		persons.clear();
 		nameTree.getListObject().clear();
 		lastNameTree.getListObject().clear();
 		fullNameTree.getListObject().clear();
 		codeTree.getListObject().clear();
-		
+
 		if(tree==1) {
 			nameTree.addPeopletoList(key, nameTree.getRaiz());
 			System.out.println(nameTree.getListObject().size());
@@ -142,7 +149,16 @@ public class DataSet {
 			}
 		}
 	}
-	
+
+	public void addFromTrees(Person newP) {
+
+		nameTree.add(newP,newP.getName());
+		lastNameTree.add(newP,newP.getLastName());
+		lastNameTree2.add(newP,newP.getLastName());
+		fullNameTree.add(newP,newP.getFullName());
+		codeTree.add(newP,newP.getCode());
+	}
+
 	public void removeFromTrees(Person pRemove) {
 		nameTree.remove(pRemove.getName());
 		lastNameTree.remove(pRemove.getLastName());
@@ -152,9 +168,9 @@ public class DataSet {
 
 	public List<Person> getPersons(){
 		return this.persons;
-		
+
 	}
-	
+
 	public String getRandomImage() {
 		String raiz="src/photos/";
 		String base=".jpg";
@@ -175,7 +191,7 @@ public class DataSet {
 		}
 		br.close();
 	}
-	
+
 	public void importLastNames() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(FILE_LASTNAME_TXT_PATH));
 		String line = br.readLine();
@@ -188,7 +204,7 @@ public class DataSet {
 		}
 		br.close();
 	}
-	
+
 	public int generateAge() {
 		int index = (int)(Math.random()*101+1);
 		int age;
@@ -209,11 +225,11 @@ public class DataSet {
 		}
 		return age;
 	}
-	
+
 	public String getRandomDate(int age) {
-	    
+
 		String Strdate="";
-        int currentYear=getLocalDate.getYear();
+		int currentYear=getLocalDate.getYear();
 		int year=currentYear-age; 
 		int month=(int)(Math.random()*13+1);
 		int day;
@@ -226,25 +242,25 @@ public class DataSet {
 		Strdate=day+"/"+month+"/"+year;
 		return Strdate;
 	}
-	
+
 	public String getRandomName() {
 		int index = (int)(Math.random()*names.size()-1);
 		return names.get(index);
 	}
-	
+
 	public String getRandomLastName() {
 		int index = (int)(Math.random() * lastNames.size()-1);
 		return lastNames.get(index);
 	}
-	
+
 	public int getRandomHeight() {
 		int min_val = 120;
-        int max_val = 210;
-        Random random = new Random();
-        int randomNum = min_val + random.nextInt((max_val - min_val) + 1);
-        return  randomNum;
+		int max_val = 210;
+		Random random = new Random();
+		int randomNum = min_val + random.nextInt((max_val - min_val) + 1);
+		return  randomNum;
 	}
-	
+
 	public void importCountries() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(FILE_NACIONALITY_TXT_PATH));
 		String line = br.readLine();
@@ -257,19 +273,19 @@ public class DataSet {
 		}
 		br.close();
 	}
-	
+
 	public String getRandomCountry() {
 		int index = (int)(Math.random()*countries.size()-1);
 		return countries.get(index);
 	}
-	
+
 	public String getRandomCode() {
 		int tam = 8;
 		String alphaNumericS;
-        StringBuilder stringBuilder;
-        alphaNumericS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789";
-        stringBuilder = new StringBuilder(tam);
-        
+		StringBuilder stringBuilder;
+		alphaNumericS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789";
+		stringBuilder = new StringBuilder(tam);
+
 		for (int i = 0; i < tam; i++) {
 			// generate numeric
 			int myindex = (int) (alphaNumericS.length() * Math.random());
@@ -278,5 +294,5 @@ public class DataSet {
 		}
 		return stringBuilder.toString();
 	}
-	
+
 }
