@@ -63,39 +63,11 @@ public class DataSet {
 		codeTree.add(newP,code);
 	}
 	
-	
-	public void addPersonToBinaryTree(Person newP) {
-		if(root==null) {
-			root = newP;
-		}else {
-			addPersonToBinaryTree(root, newP);
-		}
-	}
-	
-	
-	private void addPersonToBinaryTree(Person current, Person newPerson) {
-		if(newPerson.getName().compareTo(newPerson.getName()) < 0) {
-			if(current.getLeft()==null) {
-				current.setLeft(newPerson);
-				newPerson.setUp(current);
-			}else {
-				addPersonToBinaryTree(current.getLeft(), newPerson);
-			}
-		}else {
-			if(current.getRight()==null) {
-				current.setRight(newPerson);
-				newPerson.setUp(current);
-			}else {
-				addPersonToBinaryTree(current.getRight(), newPerson);
-			}
-		}
-	}
-	
 	public void editPerson(String name, String lastName,String dateOfBirth,String profilePhoto, String nacionality, String height) {
 		
 	}
 	
-	
+
 	public void addPeopletoShow(String key, int tree) {
 		persons.clear();
 		nameTree.getListObject().clear();

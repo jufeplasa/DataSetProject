@@ -1,0 +1,116 @@
+package model;
+
+public class BinaryTree <T>{
+	private NodeBinaryTree<T> root;
+
+	public BinaryTree() {
+		
+	}
+	
+	public NodeBinaryTree<T> getRoot() {
+		return this.root;
+	}
+	
+	
+	public void setRoot(NodeBinaryTree<T> root) {
+		this.root = root;
+	}
+
+	public void addPerson(Person newP) {
+		NodeBinaryTree<T> node = new NodeBinaryTree<T>(newP);
+		NodeBinaryTree<T> root = this.getRoot();
+		if(root==null) {
+			root = node;
+		}else {
+			addPerson(root, node);
+		}
+	}
+	
+	
+	private void addPerson(NodeBinaryTree<T> current, NodeBinaryTree<T> newPerson) {
+		if(newPerson.getPerson().getName().compareTo(current.getPerson().getName()) < 0) {
+			if(current.getLeft()==null) {
+				current.setLeft(newPerson);
+				newPerson.setUp(current);
+			}else {
+				addPerson(current.getLeft(), newPerson);
+			}
+		}else {
+			if(current.getRight()==null) {
+				current.setRight(newPerson);
+				newPerson.setUp(current);
+			}else {
+				addPerson(current.getRight(), newPerson);
+			}
+		}
+	}
+	
+	public NodeBinaryTree<T> searchPerson(NodeBinaryTree<T> person) {
+		if(root==null) {
+			return null;
+		}else {
+			return searchPerson(root, person);
+		}
+	}
+
+	private NodeBinaryTree<T> searchPerson(NodeBinaryTree<T> current, NodeBinaryTree<T> personToSearch) {
+		NodeBinaryTree<T> found = null;
+		while(current!=null && found==null) {
+			if(current.getPerson().getName().equalsIgnoreCase(personToSearch.getPerson().getName())) {
+				found = current;
+			}else if(personToSearch.getPerson().getName().compareTo(current.getPerson().getName()) < 0) {
+				current = current.getRight();
+			}else {
+				current = current.getLeft();
+			}
+		}
+		return found;
+	}
+	
+	
+	private void removePerson(NodeBinaryTree<T> personToRemove) {
+		if(personToRemove != null) { 
+			if(personToRemove.getLeft() == null && personToRemove.getRight() == null) { 
+				if(personToRemove == this.getRoot()) { 
+					root = null;
+				}else if(personToRemove == personToRemove.getUp().getLeft()) {
+					personToRemove.getUp().setLeft(null);
+				}else {
+					personToRemove.getUp().setRight(null);
+				}
+				
+			}else if(personToRemove.getLeft()==null || personToRemove.getRight()==null) {
+				NodeBinaryTree<T> child;
+				if(personToRemove.getLeft()!=null) { 
+					child = personToRemove.getLeft();
+				}else {
+					child = personToRemove.getRight();
+				}
+				child.setUp(personToRemove.getUp());
+				if(personToRemove==root) {
+					root = child;
+				}else if(personToRemove==personToRemove.getUp().getLeft()) { 
+					personToRemove.getUp().setLeft(child); 
+				}else {
+					personToRemove.getUp().setRight(child); 
+				}
+			}
+			
+			//CASE 3: EL NODO A ELIMINAR TIENE 2 HIJOS:
+			else {
+				NodeBinaryTree<T> succesor = min(personToRemove.getRight());
+				personToRemove.setPerson(succesor.getPerson());
+				removePerson(succesor);
+			}
+		}
+	}
+	
+	public NodeBinaryTree<T> min(NodeBinaryTree<T> current) {
+		if(current.getLeft()==null) {
+			return current;
+		}else {
+			return min(current.getLeft());
+		}
+	}
+	
+}
