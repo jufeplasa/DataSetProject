@@ -20,6 +20,7 @@ public class DataSet {
 	private ArbolAVL<Person> lastNameTree;
 	private ArbolAVL<Person> fullNameTree;
 	private ArbolAVL<Person> codeTree;
+	private Person root;
 	
 	public DataSet() throws IOException {
 		persons = new ArrayList<Person>();
@@ -51,6 +52,35 @@ public class DataSet {
 		fullNameTree.add(newP,name+" "+lastName);
 		codeTree.add(newP,code);
 	}
+	
+	
+	public void addPersonToBinaryTree(Person newP) {
+		if(root==null) {
+			root = newP;
+		}else {
+			addPersonToBinaryTree(root, newP);
+		}
+	}
+	
+	
+	private void addPersonToBinaryTree(Person current, Person newPerson) {
+		if(newPerson.getName().compareTo(newPerson.getName()) < 0) {
+			if(current.getLeft()==null) {
+				current.setLeft(newPerson);
+				newPerson.setUp(current);
+			}else {
+				addPersonToBinaryTree(current.getLeft(), newPerson);
+			}
+		}else {
+			if(current.getRight()==null) {
+				current.setRight(newPerson);
+				newPerson.setUp(current);
+			}else {
+				addPersonToBinaryTree(current.getRight(), newPerson);
+			}
+		}
+	}
+	
 	
 	public void addPeopletoShow(String key, int tree) {
 		persons.clear();

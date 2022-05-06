@@ -16,6 +16,10 @@ public class Person implements Comparable<Person>, Serializable {
 	private String nacionality;
 	private String profilePhoto;
 	private String comparatorValue;
+	
+	private Person left;
+	private Person right;
+	private Person up;
 
 	public Person(String name, String lastName,int age,String dateOfBirth,String profilePhoto, String nacionality, double height, String code) {
 		this.name = name;
@@ -150,6 +154,32 @@ public class Person implements Comparable<Person>, Serializable {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+	
+	
+
+	public Person getLeft() {
+		return left;
+	}
+
+	public void setLeft(Person left) {
+		this.left = left;
+	}
+
+	public Person getRight() {
+		return right;
+	}
+
+	public void setRight(Person right) {
+		this.right = right;
+	}
+
+	public Person getUp() {
+		return up;
+	}
+
+	public void setUp(Person up) {
+		this.up = up;
 	}
 
 	@Override
