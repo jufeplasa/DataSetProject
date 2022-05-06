@@ -62,6 +62,7 @@ public class DataSet {
 		fullNameTree.add(newP,name+" "+lastName);
 		codeTree.add(newP,code);
 	}
+<<<<<<< HEAD
 
 
 	public void addPersonToBinaryTree(Person newP) {
@@ -102,6 +103,13 @@ public class DataSet {
 		addFromTrees(setPerson);
 	}
 
+=======
+	
+	public void editPerson(String name, String lastName,String dateOfBirth,String profilePhoto, String nacionality, String height) {
+		
+	}
+	
+>>>>>>> master
 
 	public void addPeopletoShow(String key, int tree) {
 		persons.clear();
