@@ -3,7 +3,10 @@ package model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -21,6 +24,9 @@ public class DataSet {
 	private ArbolAVL<Person> fullNameTree;
 	private ArbolAVL<Person> codeTree;
 	private Person root;
+	private Date date;
+	private ZoneId timeZone;
+	private LocalDate getLocalDate;
 	
 	public DataSet() throws IOException {
 		persons = new ArrayList<Person>();
@@ -35,6 +41,10 @@ public class DataSet {
 		fullNameTree=new ArbolAVL<Person>();
 		lastNameTree2=new ArbolRyN<Person,String>();
 		codeTree=new ArbolAVL<Person>();
+		date = new Date();
+		timeZone = ZoneId.systemDefault();
+		getLocalDate = date.toInstant().atZone(timeZone).toLocalDate();
+
 	}
 
 	public void addPerson() {
@@ -79,6 +89,10 @@ public class DataSet {
 				addPersonToBinaryTree(current.getRight(), newPerson);
 			}
 		}
+	}
+	
+	public void editPerson(String name, String lastName,String dateOfBirth,String profilePhoto, String nacionality, String height) {
+		
 	}
 	
 	
@@ -197,8 +211,10 @@ public class DataSet {
 	}
 	
 	public String getRandomDate(int age) {
-		String date="";
-		int year=2022-age; 
+	    
+		String Strdate="";
+        int currentYear=getLocalDate.getYear();
+		int year=currentYear-age; 
 		int month=(int)(Math.random()*13+1);
 		int day;
 		if(month==1||month==3||month==5||month==7||month==8||month==10||month==12) {
@@ -207,8 +223,8 @@ public class DataSet {
 		else {
 			day=(int)(Math.random()*31+1);
 		}
-		date=day+"/"+month+"/"+year;
-		return date;
+		Strdate=day+"/"+month+"/"+year;
+		return Strdate;
 	}
 	
 	public String getRandomName() {

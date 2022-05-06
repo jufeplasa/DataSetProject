@@ -2,6 +2,7 @@ package ui;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -24,6 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.DataSet;
 import model.Person;
@@ -329,7 +331,86 @@ public class DataSetGUI {
     }
     
     @FXML
-    public void upgradePerson(ActionEvent event) {
+    public void upgradePerson(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlloader= new FXMLLoader (getClass().getResource("UpdatePage.fxml"));
+    	fxmlloader.setController(this);
+    	Parent root= fxmlloader.load();
+    	Scene scene= new Scene (root);
+		mainStage.setScene(scene);
+    	mainStage.setTitle("Update Page");
+		mainStage.show();
+    }
+    
+    @FXML
+    private TextField txtName;
+
+    @FXML
+    private TextField txtLastName;
+
+    @FXML
+    private TextField txtBirthDate;
+
+    @FXML
+    private TextField txtHeight;
+
+    @FXML
+    private TextField txtCountry;
+
+    @FXML
+    private TextField txtPhoto;
+    
+    @FXML
+    public void searchUrl(ActionEvent event) throws MalformedURLException {
+    	FileChooser fileChooser = new FileChooser();
+    	fileChooser.setTitle("Open Resource File");
+    	File selectedDirectory = fileChooser.showOpenDialog(mainStage);
+    	txtPhoto.setText(selectedDirectory.toURI().toURL().toString());
+    }	
+    
+
+    @FXML
+    public void acceptUpdate(ActionEvent event) {
+    	if(tempPerson==null) {
+    		Alert alert=new Alert(null);
+    		alert.setAlertType(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Select a person");
+			alert.setContentText("You must choose a person first to upgrade his/her information.");
+			alert.showAndWait();
+    	}
+    	else {
+    		String newName=txtName.getText();
+        	String newLastName=txtLastName.getText();
+        	String newBirthday=txtBirthDate.getText();
+        	String newHeight=txtHeight.getText();
+        	String newCountry=txtCountry.getText();
+        	String newPhoto=txtPhoto.getText();
+        	if(newName.isEmpty()) {
+        		newName=tempPerson.getName();
+        	}
+        	if(newLastName.isEmpty()) {
+        		newLastName=tempPerson.getLastName();
+        	}
+        	if(newBirthday.isEmpty()) {
+        		newBirthday=tempPerson.getDateOfBirth();
+        	}
+        	if(newHeight.isEmpty()) {
+        		newHeight=tempPerson.getHeight()+"";
+        	}
+        	if(newCountry.isEmpty()) {
+        		newCountry=tempPerson.getNacionality();
+        	}
+        	if(newPhoto.isEmpty()) {
+        		newPhoto=tempPerson.getProfilePhoto();
+        	}
+    	}
+    	
+    }
+
+    @FXML
+    public void cancelUpdate(ActionEvent event) {
 
     }
+    
+   
 }
