@@ -1,6 +1,7 @@
 package model;
 
 public class NodeBinaryTree<T> {
+	
 	private Person person;
     private NodeBinaryTree<T> left;
     private NodeBinaryTree<T> right;
