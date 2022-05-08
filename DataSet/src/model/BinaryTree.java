@@ -1,10 +1,14 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinaryTree <T>{
 	private NodeBinaryTree<T> root;
-
+	private List<Person> listObject;
+	
 	public BinaryTree() {
-		
+		listObject = new ArrayList<Person>();
 	}
 	
 	public NodeBinaryTree<T> getRoot() {
@@ -20,7 +24,8 @@ public class BinaryTree <T>{
 		NodeBinaryTree<T> node = new NodeBinaryTree<T>(newP);
 		NodeBinaryTree<T> root = this.getRoot();
 		if(root==null) {
-			root = node;
+			this.root = node;
+			root=node;
 		}else {
 			addPerson(root, node);
 		}
@@ -28,7 +33,7 @@ public class BinaryTree <T>{
 	
 	
 	private void addPerson(NodeBinaryTree<T> current, NodeBinaryTree<T> newPerson) {
-		if(newPerson.getPerson().getName().compareTo(current.getPerson().getName()) < 0) {
+		if(newPerson.getPerson().getName().compareTo(current.getPerson().getName()) <= 0) {
 			if(current.getLeft()==null) {
 				current.setLeft(newPerson);
 				newPerson.setUp(current);
@@ -56,21 +61,24 @@ public class BinaryTree <T>{
 	private NodeBinaryTree<T> searchPerson(NodeBinaryTree<T> current, NodeBinaryTree<T> personToSearch) {
 		NodeBinaryTree<T> found = null;
 		while(current!=null && found==null) {
-			if(current.getPerson().getName().equalsIgnoreCase(personToSearch.getPerson().getName())) {
+			if(current.getPerson()==personToSearch.getPerson()) {
 				found = current;
 			}else if(personToSearch.getPerson().getName().compareTo(current.getPerson().getName()) < 0) {
-				current = current.getRight();
-			}else {
 				current = current.getLeft();
+			}else {
+				current = current.getRight();
 			}
 		}
 		return found;
 	}
 	
 	
-	private void removePerson(NodeBinaryTree<T> personToRemove) {
+	public void removePerson(NodeBinaryTree<T> personToRemove) {
 		if(personToRemove != null) { 
-			if(personToRemove.getLeft() == null && personToRemove.getRight() == null) { 
+			if(personToRemove.getLeft() == null && personToRemove.getRight() == null) {
+				System.out.println("hijo: "+personToRemove.getPerson().getFullName());
+				System.out.println("padre: "+personToRemove.getUp().getPerson().getFullName());
+				
 				if(personToRemove == this.getRoot()) { 
 					root = null;
 				}else if(personToRemove == personToRemove.getUp().getLeft()) {
@@ -103,6 +111,33 @@ public class BinaryTree <T>{
 				removePerson(succesor);
 			}
 		}
+	}
+	
+	public void addPeopletoList(String key,NodeBinaryTree<T> raizTmp) {
+		NodeBinaryTree<T> currentnode = raizTmp;
+
+		if (currentnode != null && currentnode.getPerson().getName().toUpperCase().startsWith(key.toUpperCase())) {
+			listObject.add(currentnode.getPerson());
+			if (currentnode.getRight() != null) {
+				addPeopletoList(key, currentnode.getRight());
+			}
+			if (currentnode.getLeft() != null) {
+				addPeopletoList(key, currentnode.getLeft());
+			}
+		} 
+		else {
+			if (currentnode.getRight() != null) {
+				addPeopletoList(key, currentnode.getRight());
+			}
+			if (currentnode.getLeft() != null) {
+				addPeopletoList(key, currentnode.getLeft());
+			}
+		}
+
+	}
+	
+	public List<Person> getListObject() {
+		return listObject;
 	}
 	
 	public NodeBinaryTree<T> min(NodeBinaryTree<T> current) {

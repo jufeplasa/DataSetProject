@@ -18,12 +18,12 @@ public class DataSet {
 	private String FILE_NAME_TXT_PATH = "data/name/babynames-clean.csv";
 	private String FILE_NACIONALITY_TXT_PATH = "data/nacionality/population_by_country_2020.csv";
 	private List<Person> persons;
-	private ArbolAVL<Person> nameTree;
+	private BinaryTree <Person> nameTree2;
+	//private ArbolAVL<Person> nameTree;
 	private ArbolRyN<Person, String> lastNameTree2;
 	private ArbolAVL<Person> lastNameTree;
 	private ArbolAVL<Person> fullNameTree;
 	private ArbolAVL<Person> codeTree;
-	private Person root;
 	private Date date;
 	private ZoneId timeZone;
 	private LocalDate getLocalDate;
@@ -36,7 +36,8 @@ public class DataSet {
 		importNames();
 		importLastNames();
 		importCountries();
-		nameTree=new ArbolAVL<Person>();
+		nameTree2=new BinaryTree <Person>();
+		//nameTree=new ArbolAVL<Person>();
 		lastNameTree=new ArbolAVL<Person>();
 		fullNameTree=new ArbolAVL<Person>();
 		lastNameTree2=new ArbolRyN<Person,String>();
@@ -56,41 +57,14 @@ public class DataSet {
 		double height=getRandomHeight();
 		String code=getRandomCode();
 		Person newP=new Person(name,lastName,age,date,getRandomImage(),country, height, code);
-		nameTree.add(newP,name);
+		nameTree2.addPerson(newP);
+		//nameTree.add(newP,name);
 		lastNameTree.add(newP,lastName);
 		lastNameTree2.add(newP,lastName);
 		fullNameTree.add(newP,name+" "+lastName);
 		codeTree.add(newP,code);
 	}
-<<<<<<< HEAD
 
-
-	public void addPersonToBinaryTree(Person newP) {
-		if(root==null) {
-			root = newP;
-		}else {
-			addPersonToBinaryTree(root, newP);
-		}
-	}
-
-
-	private void addPersonToBinaryTree(Person current, Person newPerson) {
-		if(newPerson.getName().compareTo(newPerson.getName()) < 0) {
-			if(current.getLeft()==null) {
-				current.setLeft(newPerson);
-				newPerson.setUp(current);
-			}else {
-				addPersonToBinaryTree(current.getLeft(), newPerson);
-			}
-		}else {
-			if(current.getRight()==null) {
-				current.setRight(newPerson);
-				newPerson.setUp(current);
-			}else {
-				addPersonToBinaryTree(current.getRight(), newPerson);
-			}
-		}
-	}
 
 	public void editPerson(Person oldP,String name, String lastName,String dateOfBirth,String profilePhoto, String nacionality, String strHeight, String code) {
 		String [] parts=dateOfBirth.split("/");
@@ -103,34 +77,30 @@ public class DataSet {
 		addFromTrees(setPerson);
 	}
 
-=======
 	
 	public void editPerson(String name, String lastName,String dateOfBirth,String profilePhoto, String nacionality, String height) {
 		
 	}
 	
->>>>>>> master
 
 	public void addPeopletoShow(String key, int tree) {
 		persons.clear();
-		nameTree.getListObject().clear();
+		nameTree2.getListObject().clear();
 		lastNameTree.getListObject().clear();
 		fullNameTree.getListObject().clear();
 		codeTree.getListObject().clear();
 
 		if(tree==1) {
-			nameTree.addPeopletoList(key, nameTree.getRaiz());
-			System.out.println(nameTree.getListObject().size());
-			if(nameTree.getListObject()!=null) {
-				for(int i=0;i<nameTree.getListObject().size();i++) {
-					nameTree.getListObject().get(i).setComparatorValue(nameTree.getListObject().get(i).getName());
+			nameTree2.addPeopletoList(key, nameTree2.getRoot());
+			if(nameTree2.getListObject()!=null) {
+				for(int i=0;i<nameTree2.getListObject().size();i++) {
+					nameTree2.getListObject().get(i).setComparatorValue(nameTree2.getListObject().get(i).getName());
 				}
-				persons=nameTree.getListObject();
+				persons=nameTree2.getListObject();
 			}
 		}
 		else if(tree==2) {
 			lastNameTree.addPeopletoList(key, lastNameTree.getRaiz());
-			System.out.println(lastNameTree.getListObject().size());
 			if(lastNameTree.getListObject()!=null) {
 				for(int i=0;i<lastNameTree.getListObject().size();i++) {
 					lastNameTree.getListObject().get(i).setComparatorValue(lastNameTree.getListObject().get(i).getLastName());
@@ -160,7 +130,7 @@ public class DataSet {
 
 	public void addFromTrees(Person newP) {
 
-		nameTree.add(newP,newP.getName());
+		nameTree2.addPerson(newP);
 		lastNameTree.add(newP,newP.getLastName());
 		lastNameTree2.add(newP,newP.getLastName());
 		fullNameTree.add(newP,newP.getFullName());
@@ -168,7 +138,9 @@ public class DataSet {
 	}
 
 	public void removeFromTrees(Person pRemove) {
-		nameTree.remove(pRemove.getName());
+		NodeBinaryTree<Person> rNode= nameTree2.searchPerson(new NodeBinaryTree<Person>(pRemove));
+		System.out.println(rNode.getPerson().getFullName());
+		nameTree2.removePerson(rNode);
 		lastNameTree.remove(pRemove.getLastName());
 		fullNameTree.remove(pRemove.getFullName());
 		codeTree.remove(pRemove.getCode());

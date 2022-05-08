@@ -13,19 +13,16 @@
             <Font size="32.0" />
          </font>
       </Label>
-      <Label layoutX="15.0" layoutY="99.0" prefHeight="29.0" prefWidth="46.0" text="Name:" />
-      <Label layoutX="15.0" layoutY="150.0" prefHeight="29.0" prefWidth="62.0" text="LastName:" />
-      <Label layoutX="15.0" layoutY="194.0" prefHeight="29.0" prefWidth="62.0" text="BirthDate:" />
-      <Label layoutX="15.0" layoutY="277.0" prefHeight="29.0" prefWidth="62.0" text="Country:" />
-      <Label layoutX="15.0" layoutY="234.0" prefHeight="29.0" prefWidth="62.0" text="Height:" />
-      <TextField fx:id="txtName" layoutX="90.0" layoutY="101.0" />
-      <TextField fx:id="txtLastName" layoutX="90.0" layoutY="152.0" />
-      <TextField fx:id="txtBirthDate" layoutX="90.0" layoutY="196.0" />
-      <TextField fx:id="txtHeight" layoutX="90.0" layoutY="236.0" />
-      <TextField fx:id="txtCountry" layoutX="90.0" layoutY="279.0" />
-      <Label layoutX="14.0" layoutY="331.0" prefHeight="29.0" prefWidth="62.0" text="Photo:" />
-      <TextField fx:id="txtPhoto" layoutX="89.0" layoutY="333.0" />
-      <Button layoutX="260.0" layoutY="333.0" mnemonicParsing="false" onAction="#searchUrl" text="Browse" />
+      <Label layoutX="22.0" layoutY="134.0" prefHeight="29.0" prefWidth="46.0" text="Name:" />
+      <Label layoutX="22.0" layoutY="185.0" prefHeight="29.0" prefWidth="62.0" text="LastName:" />
+      <Label layoutX="22.0" layoutY="229.0" prefHeight="29.0" prefWidth="62.0" text="BirthDate:" />
+      <Label layoutX="22.0" layoutY="312.0" prefHeight="29.0" prefWidth="62.0" text="Country:" />
+      <Label layoutX="22.0" layoutY="269.0" prefHeight="29.0" prefWidth="62.0" text="Height:" />
+      <TextField fx:id="txtName" layoutX="97.0" layoutY="136.0" />
+      <TextField fx:id="txtLastName" layoutX="97.0" layoutY="187.0" />
+      <TextField fx:id="txtBirthDate" layoutX="97.0" layoutY="231.0" />
+      <TextField fx:id="txtHeight" layoutX="97.0" layoutY="271.0" />
+      <TextField fx:id="txtCountry" layoutX="97.0" layoutY="314.0" />
       <Button layoutX="360.0" layoutY="182.0" mnemonicParsing="false" onAction="#acceptUpdate" text="Update" />
       <Button layoutX="459.0" layoutY="184.0" mnemonicParsing="false" onAction="#cancelUpdate" text="Cancel" />
       <Button layoutY="2.0" mnemonicParsing="false" onAction="#toBack" prefHeight="25.0" prefWidth="62.0" text="Back" />

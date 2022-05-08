@@ -357,19 +357,7 @@ public class DataSetGUI {
     private TextField txtCountry;
 
     @FXML
-    private TextField txtPhoto;
-    
-    @FXML
-    public void searchUrl(ActionEvent event) throws MalformedURLException {
-    	FileChooser fileChooser = new FileChooser();
-    	fileChooser.setTitle("Open Resource File");
-    	File selectedDirectory = fileChooser.showOpenDialog(mainStage);
-    	txtPhoto.setText(selectedDirectory.toURI().toURL().toString());
-    }	
-    
-
-    @FXML
-    public void acceptUpdate(ActionEvent event) {
+    public void acceptUpdate(ActionEvent event) throws IOException {
     	if(tempPerson==null) {
     		Alert alert=new Alert(null);
     		alert.setAlertType(AlertType.ERROR);
@@ -384,7 +372,6 @@ public class DataSetGUI {
         	String newBirthday=txtBirthDate.getText();
         	String newHeight=txtHeight.getText();
         	String newCountry=txtCountry.getText();
-        	String newPhoto=txtPhoto.getText();
         	if(newName.isEmpty()) {
         		newName=tempPerson.getName();
         	}
@@ -400,18 +387,29 @@ public class DataSetGUI {
         	if(newCountry.isEmpty()) {
         		newCountry=tempPerson.getNacionality();
         	}
-        	if(newPhoto.isEmpty()) {
-        		newPhoto=tempPerson.getProfilePhoto();
-        	}
-        	data.editPerson(tempPerson, newName, newLastName, newBirthday, newPhoto, newCountry, newHeight, tempPerson.getCode());
-        	
+        	data.editPerson(tempPerson, newName, newLastName, newBirthday, tempPerson.getProfilePhoto(), newCountry, newHeight, tempPerson.getCode());
+        	Alert alert = new Alert(AlertType.INFORMATION);
+        	alert.setTitle("Information Edit");
+        	alert.setHeaderText("You upgrade the person");
+        	alert.setContentText("The person has updated successfully");
+        	alert.showAndWait();
+        	tempPerson=null;
+        	toBack(event);
     	}
     	
     }
 
     @FXML
-    public void cancelUpdate(ActionEvent event) {
+    public void cancelUpdate(ActionEvent event) throws IOException {
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+    	alert.setTitle("Confirmation cancel");
+    	alert.setHeaderText("You will lose the progress");
+    	alert.setContentText("Are you ok with this?");
 
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.OK){
+        	toBack(event);
+    	}
     }
     
    
