@@ -2,7 +2,6 @@ package ui;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -25,7 +24,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.DataSet;
 import model.Person;

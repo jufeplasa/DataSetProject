@@ -20,7 +20,6 @@
           <Menu mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#toWindowCreate" text="Create" />
-                  <MenuItem mnemonicParsing="false" text="Remove" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Data">

@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArbolRyN<K extends Comparable<K>, V>{
@@ -11,8 +12,6 @@ public class ArbolRyN<K extends Comparable<K>, V>{
 		public K key;
 		public V value;
 		public Node left, right;
-		
-		private V eliminar;
 		public boolean color;
 		
 		public Node(K key, V value) {
@@ -27,8 +26,10 @@ public class ArbolRyN<K extends Comparable<K>, V>{
 	
 	private Node root;
 	private int size;
+	private List<K> listObject;
 	
 	public ArbolRyN() {
+		setListObject(new ArrayList<K>());
 		root = null;
 		size = 0;
 	}
@@ -148,7 +149,7 @@ public class ArbolRyN<K extends Comparable<K>, V>{
 		return node;
 	}
 	
-	private V eliminar(K key) {
+	public V eliminar(K key) {
 		Node node = getNode(root, key);
 		if(node != null) {
 			root = eliminar(root, key);
@@ -182,6 +183,39 @@ public class ArbolRyN<K extends Comparable<K>, V>{
 			
 			return successor;
 		}
+	}
+	
+	/**public void addPeopletoList(String key, Node raizTmp) {
+		Nodo<T> currentnode = raizTmp;
+
+		if (currentnode.getDato() != null && currentnode.getComparador().toUpperCase().startsWith(key.toUpperCase())) {
+			System.out.println(currentnode.getComparador());
+			listObject.add(raizTmp.getDato());
+			if (currentnode.getDerecha() != null) {
+				addPeopletoList(key, currentnode.getDerecha());
+			}
+			if (currentnode.getIzquierda() != null) {
+				addPeopletoList(key, currentnode.getIzquierda());
+			}
+		} 
+		else {
+			System.out.println("no entro");
+			if(currentnode.getDerecha()!=null) {
+				addPeopletoList( key,currentnode.getDerecha());
+			}
+			if (currentnode.getIzquierda() != null) {
+				addPeopletoList(key, currentnode.getIzquierda());
+			}
+		}
+
+	}**/
+
+	public List<K> getListObject() {
+		return listObject;
+	}
+
+	public void setListObject(List<K> listObject) {
+		this.listObject = listObject;
 	}
 	
 	
