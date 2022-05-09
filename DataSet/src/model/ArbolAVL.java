@@ -141,10 +141,8 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 	public Nodo<T> rotacionSimpleDerecha(Nodo<T> nodo) {
 		Nodo<T> nodoTmp = nodo;
 		nodo = nodoTmp.getIzquierda();
-
 		nodoTmp.setIzquierda(nodo.getDerecha());
 		nodo.setDerecha(nodoTmp);
-
 		return nodo;
 	}
 
