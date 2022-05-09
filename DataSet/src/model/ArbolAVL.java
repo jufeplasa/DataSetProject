@@ -278,159 +278,162 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		return iter;
 	}
 
+	public Nodo<T> searchPerson(Nodo<T> person) {
+		if(raiz==null) {
+			return null;
+		}else {
+			return searchPerson(raiz, person);
+		}
+	}
+
+	private Nodo<T> searchPerson(Nodo<T> current, Nodo<T> personToSearch) {
+		Nodo<T> found = null;
+		while(current!=null && found==null) {
+			if(current.getDato()==personToSearch.getDato()) {
+				found = current;
+			}else if(personToSearch.getComparador().compareTo(current.getComparador()) < 0) {
+				current = current.getIzquierda();
+			}else {
+				current = current.getDerecha();
+			}
+		}
+		return found;
+	}
+
 	// --------------------------------------------------
 
-	public boolean remove(String o) throws ClassCastException, NullPointerException {
-		Nodo<T> borrar = null, mirar = null, cambiar = null, nPadre = null;
+	public boolean remove(Nodo<T> o) throws ClassCastException, NullPointerException {
+		Nodo<T> borrar = null, mirar = null,  nPadre = null;
 		Nodo<T> raizTmp = this.getRaiz();
-		T c_aux;
 		boolean salir = false;
 		int altDer = 0;
 		int altIzq = 0;
-		if (this.isEmpty()) {
-			return false;
-		} 
-		// el nodo a borrar es la raiz?
-		if (this.compararDato(o, raizTmp.getComparador()) == 0) {
-			
-			salir = true;
-			borrar = raizTmp;
-		}
-		// si no es la raiz, lo buscamos
-		while (!salir && (raizTmp.getDerecha() != null || raizTmp.getIzquierda() != null)) {
-
-			if (this.compararDato(o, raizTmp.getComparador()) > 0) {
-				if (raizTmp.getDerecha() != null) {
-					raizTmp = raizTmp.getDerecha();
-				} else {
-					return false;
-				}
-			} else if (this.compararDato(o, raizTmp.getComparador()) < 0) {
-
-				if (raizTmp.getIzquierda() != null) {
-					raizTmp = raizTmp.getIzquierda();
-				} else {
-					return false;
-				}
-			}
-
-			if (this.compararDato(o, raizTmp.getComparador()) == 0) {
+		if (o!=null) {
+			// el nodo a borrar es la raiz?
+			if(this.compararDato(o.getComparador(), raizTmp.getComparador()) == 0) {
 				salir = true;
 				borrar = raizTmp;
 			}
-		}
-
-		// existe el nodo a borrar?
-		if (salir) {
-			mirar = borrar;
-
-			// es una hoja?
-			if (borrar.getIzquierda() == null && borrar.getDerecha() == null) {
-				mirar = padre(borrar);
-				nPadre = padre(borrar);
-
-				// es un arbol raiz con solo un nodo raiz?
-				if (this.size() == 1) {
-					this.raiz = null;
-				}
-
-				if (nPadre.getIzquierda() != null && compararDato(nPadre.getIzquierda().getComparador(), borrar.getComparador()) == 0) {
-					nPadre.setIzquierda(null);
-				} else if (nPadre.getDerecha() != null && compararDato(nPadre.getDerecha().getComparador(), borrar.getComparador()) == 0) {
-					nPadre.setDerecha(null);
-				}
-				// nos lo cargamos
-				borrar.setDato(null);
-			} // solo tiene un hijo? (o 2 pero en la misma altura) entonces la altura de ese
-			// subarbol será 1 o 2 (altura raiz = 1)
-			else if (borrar.getAltura() <= 2) {
-
-				if (borrar.getIzquierda() != null) {
-					borrar.setDato(borrar.getIzquierda().getDato());
-					borrar.setIzquierda(null);
-				} else if (borrar.getDerecha() != null) {
-					borrar.setDato(borrar.getDerecha().getDato());
-					borrar.setDerecha(null);
-				}
-			} // cuando no es ni un hoja ni su padre. Es decir, está por medio del arbol.
 			else {
+				borrar=o;
+				mirar =o;
+				
+				// es una hoja?
+				if (borrar.getIzquierda() == null && borrar.getDerecha() == null) {
 
-				// buscamos el mayor de la izquierda
-				if (borrar.getIzquierda() != null) {
-					cambiar = borrar.getIzquierda();
-
-					while (cambiar.getDerecha() != null) {
-						cambiar = cambiar.getDerecha();
+					mirar = padre(borrar);
+					nPadre = padre(borrar);
+					System.out.println("sin  hijo: "+borrar.getComparador());
+					System.out.println("padre: "+nPadre.getComparador());
+					// es un arbol raiz con solo un nodo raiz?
+					if (this.size() == 1) {
+						this.raiz = null;
 					}
-				} // buscamos el menor de la derecha
-				else if (borrar.getDerecha() != null) {
-					cambiar = borrar.getDerecha();
-
-					while (cambiar.getIzquierda() != null) {
-						cambiar = cambiar.getIzquierda();
+					else if (nPadre.getIzquierda() != null && (nPadre.getIzquierda().getDato()==borrar.getDato())){
+						nPadre.setIzquierda(null);
+					} 
+					else if (nPadre.getDerecha() != null && (nPadre.getDerecha().getDato()==borrar.getDato())) {
+						nPadre.setDerecha(null);
 					}
+					// nos lo cargamos
+					borrar=null;
 				}
-
-				c_aux = cambiar.getDato();
-				Nodo<T> papa = padre(cambiar);
-
-				// si el nodo que hemos cambiado se ha quedado con algún hijo...
-				if (cambiar.getIzquierda() != null || cambiar.getDerecha() != null) {
-					if (cambiar.getIzquierda() != null) {
-						cambiar.setDato(cambiar.getIzquierda().getDato());
-						cambiar.setIzquierda(null);
-					} else if (cambiar.getDerecha() != null) {
-						cambiar.setDato(cambiar.getDerecha().getDato());
-						cambiar.setDerecha(null);
+				//tiene almenos un hijo
+				else if (borrar.getIzquierda() == null || borrar.getDerecha() == null) {
+					
+					Nodo<T> child;
+					nPadre = padre(borrar);
+					
+					if (borrar.getIzquierda() != null) {
+						child=borrar.getIzquierda();
+					} 
+					else  {
+						child=borrar.getDerecha();
 					}
-				} // si no tiene hijos ya, lo eliminamos sin más
+					if(borrar==raiz) {
+						raiz = child;
+						borrar=null;
+					}else if(borrar==nPadre.getIzquierda()) { 
+						nPadre.setIzquierda(child); 
+						borrar=null;
+					}else {
+						nPadre.setDerecha(child); 
+						borrar=null;
+					}
+				} // cuando no es ni un hoja ni su padre. Es decir, está por medio del arbol.
 				else {
-					if (papa.getIzquierda() != null && compararDato(papa.getIzquierda().getComparador(), cambiar.getComparador()) == 0) {
-						papa.setIzquierda(null);
+					nPadre = padre(borrar);
+					System.out.println("con dos hijo: "+borrar.getComparador());
+					System.out.println("padre: "+nPadre.getComparador());
+					Nodo<T> succesor = min(borrar.getDerecha());
+					
+					borrar.setDato(succesor.getDato());
+					borrar.setComparador(succesor.getComparador());
+					
+					remove(succesor);
+					
+				}
+
+				while (equilibrado(this.getRaiz()) < 0) {
+					if (mirar.getDerecha() == null) {
+						altDer = 0;
 					} else {
-						papa.setDerecha(null);
+						altDer = mirar.getDerecha().getAltura();
 					}
-					cambiar.setDato(borrar.getDato());
-					borrar.setDato(c_aux);
-				}
-			}
 
-			while (equilibrado(this.getRaiz()) < 0) {
-				if (mirar.getDerecha() == null) {
-					altDer = 0;
-				} else {
-					altDer = mirar.getDerecha().getAltura();
-				}
-
-				if (mirar.getIzquierda() == null) {
-					altIzq = 0;
-				} else {
-					altIzq = mirar.getIzquierda().getAltura();
-				}
-
-				Nodo<T> cambiar2 = estructurar(mirar, altIzq, altDer);
-				Nodo<T> superior = padre(mirar);
-
-				// si los nodos modificados tenian un padre anteriormente
-				if (compararDato(superior.getComparador(), mirar.getComparador()) != 0) {
-					if (superior.getIzquierda() != null
-							&& compararDato(superior.getIzquierda().getComparador(), mirar.getComparador()) == 0) {
-						superior.setIzquierda(cambiar2);
-					} else if (superior.getDerecha() != null
-							&& compararDato(superior.getDerecha().getComparador(), mirar.getComparador()) == 0) {
-						superior.setDerecha(cambiar2);
+					if (mirar.getIzquierda() == null) {
+						altIzq = 0;
+					} else {
+						altIzq = mirar.getIzquierda().getAltura();
 					}
-				} else {
-					this.raiz = cambiar2;
+
+					Nodo<T> cambiar2 = estructurar(mirar, altIzq, altDer);
+					Nodo<T> superior = padre(mirar);
+
+					// si los nodos modificados tenian un padre anteriormente
+					if (compararDato(superior.getComparador(), mirar.getComparador()) != 0) {
+						if (superior.getIzquierda() != null
+								&& compararDato(superior.getIzquierda().getComparador(), mirar.getComparador()) == 0) {
+							superior.setIzquierda(cambiar2);
+						} else if (superior.getDerecha() != null
+								&& compararDato(superior.getDerecha().getComparador(), mirar.getComparador()) == 0) {
+							superior.setDerecha(cambiar2);
+						}
+					} else {
+						this.raiz = cambiar2;
+					}
+					mirar = padre(mirar);
 				}
-				mirar = padre(mirar);
+				return true;
 			}
-			return true;
+			return false;
 		}
-		return false;
+		return salir;
 	}
-
-
+	
+	
+	public Nodo<T> sucesor(Nodo<T> current) {
+		if(current.getDerecha()!=null) {
+			return min(current.getDerecha());
+		}
+		else {
+			Nodo<T> temp=padre(current);
+			while(temp!=null&&current==temp.getDerecha()) {
+				current=temp;
+				temp=padre(temp);
+			}
+			return temp;
+		}
+	
+	}
+	public Nodo<T> min(Nodo<T> current) {
+		if(current.getIzquierda()==null) {
+			return current;
+		}else {
+			return min(current.getIzquierda());
+		}
+	}
+	
 	//------------------------------------
 
 	public int size() {
@@ -562,7 +565,6 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		Nodo<T> currentnode = raizTmp;
 
 		if (currentnode.getDato() != null && currentnode.getComparador().toUpperCase().startsWith(key.toUpperCase())) {
-			System.out.println(currentnode.getComparador());
 			listObject.add(raizTmp.getDato());
 			if (currentnode.getDerecha() != null) {
 				addPeopletoList(key, currentnode.getDerecha());
@@ -572,7 +574,6 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 			}
 		} 
 		else {
-			System.out.println("no entro");
 			if(currentnode.getDerecha()!=null) {
 				addPeopletoList( key,currentnode.getDerecha());
 			}
@@ -607,4 +608,28 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 	public void setListObject(List<T> listObject) {
 		this.listObject = listObject;
 	}
+
+	// si no es la raiz, lo buscamos
+	/**while (!salir && (raizTmp.getDerecha() != null || raizTmp.getIzquierda() != null)) {
+
+	if (this.compararDato(o, raizTmp.getComparador()) > 0) {
+		if (raizTmp.getDerecha() != null) {
+			raizTmp = raizTmp.getDerecha();
+		} else {
+			return false;
+		}
+	} else if (this.compararDato(o, raizTmp.getComparador()) < 0) {
+
+		if (raizTmp.getIzquierda() != null) {
+			raizTmp = raizTmp.getIzquierda();
+		} else {
+			return false;
+		}
+	}
+
+	if (this.compararDato(o, raizTmp.getComparador()) == 0) {
+		salir = true;
+		borrar = raizTmp;
+	}
+}**/
 }

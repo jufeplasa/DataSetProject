@@ -323,6 +323,7 @@ public class DataSetGUI {
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
     		data.removeFromTrees(tempPerson);
+    		tempPerson=null;
         	toBack(event);
     	}
     	
@@ -406,6 +407,7 @@ public class DataSetGUI {
 
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
+    		tempPerson=null;
         	toBack(event);
     	}
     }
