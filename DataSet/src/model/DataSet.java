@@ -139,18 +139,13 @@ public class DataSet {
 
 	public void removeFromTrees(Person pRemove) {
 		NodeBinaryTree<Person> rNode= nameTree2.searchPerson(new NodeBinaryTree<Person>(pRemove));
-		System.out.println(rNode.getPerson().getFullName());
 		Nodo<Person> rNode2= lastNameTree.searchPerson(new Nodo<Person>(pRemove,pRemove.getLastName()));
 		Nodo<Person> rNode3= codeTree.searchPerson(new Nodo<Person>(pRemove,pRemove.getCode()));
 		Nodo<Person> rNode4= fullNameTree.searchPerson(new Nodo<Person>(pRemove,pRemove.getFullName()));
 		nameTree2.removePerson(rNode);
-		System.out.println("elimino nombre");
 		lastNameTree.remove(rNode2);
-		System.out.println("elimino apellido");
 		codeTree.remove(rNode3);
-		System.out.println("elimino codigo ");
 		fullNameTree.remove(rNode4);
-		System.out.println("elimino full nombre");
 	}
 
 	public List<Person> getPersons(){

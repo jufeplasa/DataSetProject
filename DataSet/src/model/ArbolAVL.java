@@ -321,8 +321,6 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 
 					mirar = padre(borrar);
 					nPadre = padre(borrar);
-					System.out.println("sin  hijo: "+borrar.getComparador());
-					System.out.println("padre: "+nPadre.getComparador());
 					// es un arbol raiz con solo un nodo raiz?
 					if (this.size() == 1) {
 						this.raiz = null;
@@ -361,8 +359,6 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 				} // cuando no es ni un hoja ni su padre. Es decir, está por medio del arbol.
 				else {
 					nPadre = padre(borrar);
-					System.out.println("con dos hijo: "+borrar.getComparador());
-					System.out.println("padre: "+nPadre.getComparador());
 					Nodo<T> succesor = sucesor(borrar.getDerecha());
 					Nodo<T> temp;
 					Nodo<T> padreSuccesor=padre(succesor);
@@ -373,8 +369,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 						temp=succesor.getDerecha();
 					}
 					if(temp!=null) {
-						Nodo<T> padreTemp=padre(temp);
-						padreTemp=padreSuccesor;
+						mirar=padreSuccesor;
 					}
 					if(padre(succesor)==null) {
 						raiz=temp;

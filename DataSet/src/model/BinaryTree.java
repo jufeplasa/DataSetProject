@@ -76,8 +76,6 @@ public class BinaryTree <T>{
 	public void removePerson(NodeBinaryTree<T> personToRemove) {
 		if(personToRemove != null) { 
 			if(personToRemove.getLeft() == null && personToRemove.getRight() == null) {
-				//System.out.println("sin  hijo: "+personToRemove.getPerson().getFullName());
-				//System.out.println("padre: "+personToRemove.getUp().getPerson().getFullName());
 				
 				if(personToRemove == this.getRoot()) { 
 					root = null;
@@ -90,8 +88,6 @@ public class BinaryTree <T>{
 			}else if(personToRemove.getLeft()==null || personToRemove.getRight()==null) {
 				NodeBinaryTree<T> child;
 				
-				//System.out.println("con un hijo: "+personToRemove.getPerson().getFullName());
-				//System.out.println("padre: "+personToRemove.getUp().getPerson().getFullName());
 				if(personToRemove.getLeft()!=null) { 
 					child = personToRemove.getLeft();
 				}else {
@@ -109,8 +105,6 @@ public class BinaryTree <T>{
 			
 			//CASE 3: EL NODO A ELIMINAR TIENE 2 HIJOS:
 			else {
-				//System.out.println("dos hijos: "+personToRemove.getPerson().getFullName());
-				//System.out.println("padre: "+personToRemove.getUp().getPerson().getFullName());
 				NodeBinaryTree<T> succesor = min(personToRemove.getRight());
 				personToRemove.setPerson(succesor.getPerson());
 				removePerson(succesor);
