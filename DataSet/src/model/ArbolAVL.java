@@ -365,12 +365,32 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 					nPadre = padre(borrar);
 					System.out.println("con dos hijo: "+borrar.getComparador());
 					System.out.println("padre: "+nPadre.getComparador());
-					Nodo<T> succesor = min(borrar.getDerecha());
-					
-					borrar.setDato(succesor.getDato());
-					borrar.setComparador(succesor.getComparador());
-					
-					remove(succesor);
+					Nodo<T> succesor = sucesor(borrar.getDerecha());
+					Nodo<T> temp;
+					Nodo<T> padreSuccesor=padre(succesor);
+					if(succesor.getIzquierda()!=null) {
+						temp=succesor.getIzquierda();
+					}
+					else {
+						temp=succesor.getDerecha();
+					}
+					if(temp!=null) {
+						Nodo<T> padreTemp=padre(temp);
+						padreTemp=padreSuccesor;
+					}
+					if(padre(succesor)==null) {
+						raiz=temp;
+					}
+					else if(succesor==padreSuccesor.getIzquierda()) {
+						padreSuccesor.setIzquierda(temp);
+					}
+					else {
+						padreSuccesor.setDerecha(temp);
+					}
+					if(succesor!=borrar) {
+						borrar.setDato(succesor.getDato());
+						borrar.setComparador(succesor.getComparador());
+					}
 					
 				}
 
