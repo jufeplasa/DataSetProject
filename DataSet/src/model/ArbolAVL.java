@@ -82,7 +82,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 						altIzq = raizTmp.getIzquierda().getAltura();
 					}
 
-					Nodo<T> cambiar = estructurar(raizTmp, altIzq, altDer);
+					Nodo<T> cambiar = estructurar(raizTmp);
 					Nodo<T> superior = padre(raizTmp);
 
 					// si los nodos modificados tenian un padre anteriormente
@@ -102,7 +102,7 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 			}
 	}
 
-	private Nodo<T> estructurar(Nodo<T> nodo, int altIzq, int altDer) {
+	private Nodo<T> estructurar(Nodo<T> nodo) {
 		if (extraeFactorE(nodo) == 2) {
 			if (extraeFactorE(nodo.getDerecha()) == 1 || extraeFactorE(nodo.getDerecha()) == 0) {
 				nodo = rotacionSimpleIzquierda(nodo);
@@ -180,13 +180,13 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 
 		hIzq = equilibrado(n.getIzquierda());
 
-		if (hIzq < 0) {
+		if (hIzq <= 0) {
 			return hIzq;
 		}
 
 		hDer = equilibrado(n.getDerecha());
 
-		if (hDer < 0) {
+		if (hDer <= 0) {
 			return hDer;
 		}
 
@@ -304,8 +304,6 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 		Nodo<T> borrar = null, mirar = null,  nPadre = null;
 		Nodo<T> raizTmp = this.getRaiz();
 		boolean salir = false;
-		int altDer = 0;
-		int altIzq = 0;
 		if (o!=null) {
 			// el nodo a borrar es la raiz?
 			if(this.compararDato(o.getComparador(), raizTmp.getComparador()) == 0) {
@@ -388,34 +386,8 @@ public class ArbolAVL<T> extends java.util.AbstractSet<T> {
 				}
 
 				while (equilibrado(this.getRaiz()) < 0) {
-					if (mirar.getDerecha() == null) {
-						altDer = 0;
-					} else {
-						altDer = mirar.getDerecha().getAltura();
-					}
-
-					if (mirar.getIzquierda() == null) {
-						altIzq = 0;
-					} else {
-						altIzq = mirar.getIzquierda().getAltura();
-					}
-
-					Nodo<T> cambiar2 = estructurar(mirar, altIzq, altDer);
-					Nodo<T> superior = padre(mirar);
-
-					// si los nodos modificados tenian un padre anteriormente
-					if (compararDato(superior.getComparador(), mirar.getComparador()) != 0) {
-						if (superior.getIzquierda() != null
-								&& compararDato(superior.getIzquierda().getComparador(), mirar.getComparador()) == 0) {
-							superior.setIzquierda(cambiar2);
-						} else if (superior.getDerecha() != null
-								&& compararDato(superior.getDerecha().getComparador(), mirar.getComparador()) == 0) {
-							superior.setDerecha(cambiar2);
-						}
-					} else {
-						this.raiz = cambiar2;
-					}
-					mirar = padre(mirar);
+					System.out.println("se repite");
+					estructurar(raiz);
 				}
 				return true;
 			}
